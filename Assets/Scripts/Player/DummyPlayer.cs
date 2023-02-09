@@ -22,12 +22,10 @@ public class DummyPlayer : MonoBehaviour
 		dummy.SetActive(true);
 	}
 
-
     void Start() {
         Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
     }
-
 
 	void Update() {
 		rotate();
