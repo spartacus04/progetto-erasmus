@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Crea un bug report per migliorare Malario
-title: ''
+about: Crea un bug report per migliorare il progetto
+title: '[Bug]'
 labels: bug
 assignees: spartacus04
 
@@ -12,11 +12,12 @@ Una descrizione chiara e coincisa su come riprodurre il bug
 
 **Per riprodurre**
 Passi per riprodurre il bug:
-1. Usa il comando x
-2. Usa argomento y
+1. fai questo
+2. fai quest'altro
+3. Qui avviene il bug
 
 **Comportamento corretto**
-Descrizione chiara e coincisas di cosa pensavi accadesse
+Descrizione chiara e coincisa di cosa pensavi accadesse
 
 **Screenshots**
 Se possibile, invia screenshot
