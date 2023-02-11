@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Glob;
 
 public class FurnaceContainer : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class FurnaceContainer : MonoBehaviour
 	private float timer = 0;
 
 	private void Update() {
-		if(timer >= Glob.tickRate) {
+		if(timer >= TICK_RATE) {
 			timer = 0;
 			Tick();
 		} else {

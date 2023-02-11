@@ -14,18 +14,25 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 	void Update() {
 		if(!isGrabbed) return;
 		
-		rb.velocity = Vector3.zero;
+		transform.rotation = Quaternion.identity;
 	}
 
 	public void OnGrab(GameObject parent)
 	{
 		transform.parent = parent.transform;
-		rb.useGravity = false;
+		Destroy(rb);
+
+		isGrabbed = true;
 	}
 
 	public void OnRelease(GameObject parent)
 	{
 		transform.parent = null;
-		rb.useGravity = true;
+		rb = gameObject.AddComponent<Rigidbody>();
+
+		rb.isKinematic = false;
+		transform.rotation = Quaternion.identity;
+
+		isGrabbed = false;
 	}
 }

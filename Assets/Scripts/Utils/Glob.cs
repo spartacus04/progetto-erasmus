@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Glob {
-	public static float tickRate = 1f/5f;
+	public const float TICK_RATE = 1f/5f;
 }
