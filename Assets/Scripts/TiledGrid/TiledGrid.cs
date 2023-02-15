@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//TODO: aggiornare lo script per non usare scale ma dimensione collider
 public class TiledGrid : MonoBehaviour
 {
 	[HideInInspector]
@@ -30,8 +32,8 @@ public class TiledGrid : MonoBehaviour
 		else
 			internalUnit = transform.localScale.z / units;
 
-		for(float x = -transform.localScale.x / 2; x < transform.localScale.x / 2; x += internalUnit)
-			for(float z = -transform.localScale.z / 2; z < transform.localScale.z / 2; z += internalUnit)
+		for(float x = -transform.localScale.x / 2; x < transform.localScale.x / 2 - internalUnit; x += internalUnit)
+			for(float z = -transform.localScale.z / 2; z < transform.localScale.z / 2 - internalUnit; z += internalUnit)
 				gridPoints.Add(new Vector3(z + internalUnit / 2f, 0, x + internalUnit /2f));	// Sembra un bug ma non lo è, devo invertire x e z per avere la griglia giusta
 
 		// rotate the grid relative to this gameobject 90 degrees
