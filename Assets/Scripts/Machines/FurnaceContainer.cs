@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Glob;
 
-public class FurnaceContainer : MonoBehaviour, IMachine
+public class FurnaceContainer : Machine
 {
-	public Item input;
-	public Item output;
-	
-	public int inputCount;
-	public int outputCount;
-
 	public List<FurnaceCrafting> recipes;
-
 
 	private int ticks = 0;
 
-	public void onTick() {
-		if(inputCount < 1 && input == null) return;
+	void Awake() {
+		inventory = new Item[2];
+	}
+
+	public override void onTick() {
+		if(inventory[0] == null) return;
 
 		recipes.ForEach(recipe => {
-			if(recipe.input == input && recipe.inputCount <= inputCount) {
+			if(recipe.input.id == inventory[0].id &&
+				inventory[0].amount >= recipe.inputCount &&
+				inventory[1].id == recipe.output.id ||
+				inventory[1] == null
+			) {
 				if(recipe.ticks <= ticks) {
-					inputCount -= recipe.inputCount;
-					outputCount += recipe.outputCount;
-					output = recipe.output;
+					inventory[0].amount -= recipe.inputCount;
+
+					if(inventory[1] != null) {
+						inventory[1].amount += recipe.outputCount;
+					} else {
+						inventory[1] = recipe.output;
+						inventory[1].amount = recipe.outputCount;
+					}
 
 					ticks = 0;
 				} else {
@@ -34,31 +40,25 @@ public class FurnaceContainer : MonoBehaviour, IMachine
 		});
 	}
 
-	public void clearContents() {
-		input = null;
-		output = null;
-		inputCount = 0;
-		outputCount = 0;
+	public override void clearContents() {
+		inventory.Empty();
 	}
 
-	public bool addInput(Item input, int count) {
-		if(input == null && inputCount <= 0) {
-			this.input = input;
-			inputCount += count;
-		} else if(this.input == input) {
-			inputCount += count;
-		} else {
-			return false;
+	public override bool addInput(Item input) {
+		if(input == null) {
+			input = inventory[0];
+
+			return true;
+		} else if(input.id == inventory[0].id) {
+			inventory[0].amount += input.amount;
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
-	public (Item item, int count) getOutput() {
-		if(outputCount > 0) {
-			return (output, outputCount);
-		} else {
-			return (null, 0);
-		}
+	public override Item getOutput() {
+		return inventory[1];
 	}
 }
