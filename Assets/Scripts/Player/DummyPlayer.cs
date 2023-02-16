@@ -31,6 +31,11 @@ public class DummyPlayer : MonoBehaviour
 
 	void Update() {
 		rotate();
+		
+		//TODO: implemento diverse modalità di controllo:
+		// - Design mode
+		// - Draw mode
+		// - Config mode
 		grab();
 		click();
 	}

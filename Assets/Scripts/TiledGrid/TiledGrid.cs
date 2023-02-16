@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Glob;
+using System.Linq;
 
 
 //TODO: aggiornare lo script per non usare scale ma dimensione collider
@@ -14,6 +16,10 @@ public class TiledGrid : MonoBehaviour
 
 	[HideInInspector]
 	public static List<Vector3> gridPoints = new List<Vector3>();
+	[HideInInspector]
+	public static Dictionary<Vector3, IMachine> machines = new Dictionary<Vector3, IMachine>();
+
+	private float timer = 0;
 
 	void Awake() {
 		if(Instance != null && Instance != this)
@@ -36,9 +42,6 @@ public class TiledGrid : MonoBehaviour
 			for(float z = -transform.localScale.z / 2; z < transform.localScale.z / 2 - internalUnit; z += internalUnit)
 				gridPoints.Add(new Vector3(z + internalUnit / 2f, 0, x + internalUnit /2f));	// Sembra un bug ma non lo è, devo invertire x e z per avere la griglia giusta
 
-		// rotate the grid relative to this gameobject 90 degrees
-
-		// create cubes to visualize the grid
 		GameObject b = new GameObject("Base");
 		b.transform.position = transform.position;
 
@@ -49,6 +52,16 @@ public class TiledGrid : MonoBehaviour
 			cube.transform.localPosition = point;
 			cube.transform.localScale *= 0.01f;
 		}
+	}
+
+	void Update() {
+		if(timer >= TICK_RATE) {
+			timer = 0;
+			machines.Values.ToList().ForEach(m => m.onTick());
+		} else {
+			timer += Time.deltaTime;
+		}
+
 	}
 
 	public static Vector3 getNearestPoint(Vector3 point) {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Glob;
 
-public class FurnaceContainer : MonoBehaviour
+public class FurnaceContainer : MonoBehaviour, IMachine
 {
 	public Item input;
 	public Item output;
@@ -15,18 +15,8 @@ public class FurnaceContainer : MonoBehaviour
 
 
 	private int ticks = 0;
-	private float timer = 0;
 
-	private void Update() {
-		if(timer >= TICK_RATE) {
-			timer = 0;
-			Tick();
-		} else {
-			timer += Time.deltaTime;
-		}
-	}
-
-	private void Tick() {
+	public void onTick() {
 		if(inputCount < 1 && input == null) return;
 
 		recipes.ForEach(recipe => {
@@ -42,5 +32,33 @@ public class FurnaceContainer : MonoBehaviour
 				}
 			}
 		});
+	}
+
+	public void clearContents() {
+		input = null;
+		output = null;
+		inputCount = 0;
+		outputCount = 0;
+	}
+
+	public bool addInput(Item input, int count) {
+		if(input == null && inputCount <= 0) {
+			this.input = input;
+			inputCount += count;
+		} else if(this.input == input) {
+			inputCount += count;
+		} else {
+			return false;
+		}
+
+		return true;
+	}
+
+	public (Item item, int count) getOutput() {
+		if(outputCount > 0) {
+			return (output, outputCount);
+		} else {
+			return (null, 0);
+		}
 	}
 }

@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GrabbableGeneric : MonoBehaviour, IGrabbable
 {
 	public Material hologramMaterial;
 
-	private Rigidbody rb;
-	private bool isGrabbed = false;
+	protected Rigidbody rb;
+	protected bool isGrabbed = false;
 
-	private Vector3 lastPosition;
-	private Vector3 lastHologramPos;
-	private GameObject hologram;
+	protected Vector3 lastPosition;
+	protected Vector3 lastHologramPos;
+	protected GameObject hologram;
 
-	private bool isSnapped = false;
+	protected bool isSnapped = false;
 
-	void Start() {
+	public virtual void Start() {
 		rb = GetComponent<Rigidbody>();
 		hologram = Instantiate(gameObject);
 
@@ -45,11 +46,16 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 			else if(Vector3.Distance(point, transform.position) > 0.5f) {
 				hologram.SetActive(false);
 			}
+
+			if(TiledGrid.machines.ContainsKey(hologram.transform.position)) {
+				hologram.SetActive(false);
+			}
 		}
 	}
 
-	public void OnGrab(GameObject parent)
+	public virtual void OnGrab(GameObject parent)
 	{
+		TiledGrid.machines.Remove(transform.position);
 		transform.parent = parent.transform;
 		Destroy(rb);
 
@@ -57,7 +63,7 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 		isSnapped = false;
 	}
 
-	public void OnRelease(GameObject parent)
+	public virtual void OnRelease(GameObject parent)
 	{
 		transform.parent = null;
 		rb = gameObject.AddComponent<Rigidbody>();
@@ -71,6 +77,7 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 			transform.position = hologram.transform.position;
 			isSnapped = true;
 			rb.isKinematic = true;
+			TiledGrid.machines.Add(transform.position, GetComponent<IMachine>());
 		}
 
 		hologram.SetActive(false);

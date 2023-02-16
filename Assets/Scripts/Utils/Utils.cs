@@ -15,6 +15,7 @@ public class Utils : MonoBehaviour
 {
 	// Questa struttura è detta singleton, è una classe che contiene tantissimi metodi di utilità statici
 	private static Utils instance = null;
+	private float time = 0;
 
 	private void Awake() {
 		if (instance == null) {
@@ -22,9 +23,5 @@ public class Utils : MonoBehaviour
 		} else {
 			Destroy(gameObject);
 		}
-	}
-
-	public static Vector3 direction(Vector3 start, Vector3 target) {
-		return (target - start).normalized;
 	}
 }
