@@ -77,7 +77,7 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 			transform.position = hologram.transform.position;
 			isSnapped = true;
 			rb.isKinematic = true;
-			TiledGrid.machines.Add(transform.position, GetComponent<IMachine>());
+			TiledGrid.machines.Add(transform.position, GetComponent<Machine>());
 		}
 
 		hologram.SetActive(false);

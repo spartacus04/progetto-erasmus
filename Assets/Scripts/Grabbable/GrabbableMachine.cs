@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrabbableMachine : GrabbableGeneric
 {
-	private IMachine machine;
+	private Machine machine;
 	public override void Start() {
 		base.Start();
 	}

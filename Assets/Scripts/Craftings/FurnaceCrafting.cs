@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FurnaceCrafting", menuName = "erasmus/furnacecrafting", order = 1)]
+[CreateAssetMenu(fileName = "FurnaceCrafting", menuName = "Craftings/Furnace", order = 1)]
 public class FurnaceCrafting : ScriptableObject
 {
 	public Item input;

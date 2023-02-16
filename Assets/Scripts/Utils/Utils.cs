@@ -15,7 +15,6 @@ public class Utils : MonoBehaviour
 {
 	// Questa struttura è detta singleton, è una classe che contiene tantissimi metodi di utilità statici
 	private static Utils instance = null;
-	private float time = 0;
 
 	private void Awake() {
 		if (instance == null) {

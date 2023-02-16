@@ -17,7 +17,7 @@ public class TiledGrid : MonoBehaviour
 	[HideInInspector]
 	public static List<Vector3> gridPoints = new List<Vector3>();
 	[HideInInspector]
-	public static Dictionary<Vector3, IMachine> machines = new Dictionary<Vector3, IMachine>();
+	public static Dictionary<Vector3, Machine> machines = new Dictionary<Vector3, Machine>();
 
 	private float timer = 0;
 

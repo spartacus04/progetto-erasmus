@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Glob;
 
-public class FurnaceContainer : Machine
+public class Furnace : Machine
 {
 	public List<FurnaceCrafting> recipes;
 
 	private int ticks = 0;
+
+	private FurnaceCrafting currentRecipe;
 
 	void Awake() {
 		inventory = new Item[2];
@@ -37,6 +39,9 @@ public class FurnaceContainer : Machine
 					ticks++;
 				}
 			}
+			else {
+				ticks = 0;
+			}
 		});
 	}
 
@@ -59,6 +64,8 @@ public class FurnaceContainer : Machine
 	}
 
 	public override Item getOutput() {
-		return inventory[1];
+		var temp = inventory[1];
+		inventory[1] = null;
+		return temp;
 	}
 }
