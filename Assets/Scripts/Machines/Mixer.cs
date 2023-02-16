@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Mixer : Machine {
 	// implement 
-	
+	public int maximumFluids = 3000;
 	//TODO: aggiungere supporto ai fluidi
 
 	void Start() {
@@ -10,7 +10,7 @@ public class Mixer : Machine {
 	}
 
 	public override void onTick() {
-		
+
 	}
 
 	public override void clearContents() {

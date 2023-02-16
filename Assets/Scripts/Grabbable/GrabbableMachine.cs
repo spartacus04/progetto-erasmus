@@ -6,6 +6,7 @@ public class GrabbableMachine : GrabbableGeneric
 {
 	private Machine machine;
 	public override void Start() {
+		machine = GetComponent<Machine>();
 		base.Start();
 	}
 
