@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 // Aggiunge tutti questi medoti statici a ogni oggetto
 static class ObjectExtensions 
@@ -20,5 +21,9 @@ static class ObjectExtensions
 	public static T Apply<T>(this T self, Func<T, T> block) 
 	{
 		return block(self);
+	}
+
+	public static T[] Empty<T>(this T[] self) {
+		return new T[self.Length];
 	}
 }

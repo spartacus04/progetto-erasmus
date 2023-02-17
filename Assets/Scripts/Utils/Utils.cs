@@ -23,8 +23,4 @@ public class Utils : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
-	public static Vector3 direction(Vector3 start, Vector3 target) {
-		return (target - start).normalized;
-	}
 }
