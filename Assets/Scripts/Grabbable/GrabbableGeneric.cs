@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(Rigidbody))]
 public class GrabbableGeneric : MonoBehaviour, IGrabbable
 {
 	public Material hologramMaterial;
 
 	protected Rigidbody rb;
+	protected Machine machine = null;
+
 	protected bool isGrabbed = false;
 
 	protected Vector3 lastPosition;
@@ -24,7 +27,19 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 		Destroy(hologram.GetComponent<Rigidbody>());
 		Destroy(hologram.GetComponent<Collider>());
 
-		hologram.GetComponent<Renderer>().material = hologramMaterial;
+		if(hologram.TryGetComponent(out MeshRenderer meshRenderer)) {
+			meshRenderer.material = hologramMaterial;
+		} else {
+			foreach(var child in hologram.GetComponentsInChildren<MeshRenderer>())
+				child.material = hologramMaterial;
+		}
+
+		if(!hologram.TryGetComponent(out machine)) {
+			machine = null;
+		}
+
+		Debug.Log("Machine: " + machine);
+
 		hologram.SetActive(false);
 	}
 
@@ -77,7 +92,9 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 			transform.position = hologram.transform.position;
 			isSnapped = true;
 			rb.isKinematic = true;
-			TiledGrid.machines.Add(transform.position, GetComponent<Machine>());
+
+			if(machine != null)
+				TiledGrid.machines.Add(transform.position, machine);
 		}
 
 		hologram.SetActive(false);
