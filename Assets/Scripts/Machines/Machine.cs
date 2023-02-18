@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using static Glob;
 
 public abstract class Machine : MonoBehaviour {
 	public Item[] inventory;
@@ -11,19 +12,8 @@ public abstract class Machine : MonoBehaviour {
     public abstract void clearContents();
 	public abstract void onTick();
 
-	public virtual bool addInput(Item input) {
-		return false;
-	}
 
-	public virtual Item getOutput() {
-		return null;
-	}
+	public abstract void inventoryOperation(InteractionType type, ref Item current);
 
-	public virtual bool addInput(Fluid input) {
-		return false;
-	}
-	
-	public virtual Fluid getOutputFluid() {
-		return null;
-	}
+	public virtual void fluidOperation(InteractionType type, ref Fluid current) { }
 }

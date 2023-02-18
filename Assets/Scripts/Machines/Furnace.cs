@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Glob;
+using System;
 
 public class Furnace : Machine
 {
@@ -49,23 +50,49 @@ public class Furnace : Machine
 		inventory.Empty();
 	}
 
-	public override bool addInput(Item input) {
-		if(input == null) {
-			input = inventory[0];
+	public override void inventoryOperation(InteractionType type, ref Item current) {
+		switch(type) {
+			case InteractionType.PUSH:
+				if(inventory[0] == null) {
+					inventory[0] = current;
+					current = null;
+				} else if(current.id == inventory[0].id) {
+					inventory[0].amount += current.amount;
 
-			return true;
-		} else if(input.id == inventory[0].id) {
-			inventory[0].amount += input.amount;
+					if(inventory[0].amount > inventory[0].maxStackSize) {
+						current.amount = inventory[0].amount - inventory[0].maxStackSize;
+						inventory[0].amount = inventory[0].maxStackSize;
+					} else {
+						current = null;
+					}
+				}
 
-			return true;
+				break;
+			case InteractionType.PULL:
+				if(current == null) {
+					current = inventory[0];
+
+					if(current.amount > current.maxStackSize) {
+						inventory[0].amount = current.amount - current.maxStackSize;
+						current.amount = current.maxStackSize;
+					}
+					else {
+						inventory[0] = null;
+					}
+				} else if(current.id == inventory[0].id) {
+					current.amount += inventory[0].amount;
+
+					if(current.amount > current.maxStackSize) {
+						inventory[0].amount = current.amount - current.maxStackSize;
+						current.amount = current.maxStackSize;
+					} else {
+						inventory[0] = null;
+					}
+				}
+
+
+				break;
 		}
 
-		return false;
-	}
-
-	public override Item getOutput() {
-		var temp = inventory[1];
-		inventory[1] = null;
-		return temp;
 	}
 }
