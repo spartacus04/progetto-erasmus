@@ -6,6 +6,8 @@ using System.Linq;
 
 
 //TODO: aggiornare lo script per non usare scale ma dimensione collider
+//TODO: aggiornare lo script per associare i macchinari a delle coordinate 2d e poi associare le coordinate 2d a delle coordinate 3d
+[RequireComponent(typeof(BoxCollider))]
 public class TiledGrid : MonoBehaviour
 {
 	[HideInInspector]
@@ -15,11 +17,13 @@ public class TiledGrid : MonoBehaviour
 	private float internalUnit = 1f;
 
 	[HideInInspector]
-	public static List<Vector3> gridPoints = new List<Vector3>();
+	public static Dictionary<Vector2Int, Machine> machines = new Dictionary<Vector2Int, Machine>();
 	[HideInInspector]
-	public static Dictionary<Vector3, Machine> machines = new Dictionary<Vector3, Machine>();
+	public static Dictionary<Vector3, Vector2Int> gridPoints = new Dictionary<Vector3, Vector2Int>();
 
 	private float timer = 0;
+
+	private BoxCollider coll;
 
 	void Awake() {
 		if(Instance != null && Instance != this)
@@ -29,27 +33,37 @@ public class TiledGrid : MonoBehaviour
 	}
 
 	void Start() {
+		coll = GetComponent<BoxCollider>();
+
+
 		getSnaps();
 	}
 
 	void getSnaps() {
-		if(transform.localScale.x < transform.localScale.z)
-			internalUnit = transform.localScale.x / units;
+		if(coll.size.x < coll.size.y)
+			internalUnit = coll.size.z / units;
 		else
-			internalUnit = transform.localScale.z / units;
+			internalUnit = coll.size.z / units;
 
-		for(float x = -transform.localScale.x / 2; x < transform.localScale.x / 2 - internalUnit; x += internalUnit)
-			for(float z = -transform.localScale.z / 2; z < transform.localScale.z / 2 - internalUnit; z += internalUnit)
-				gridPoints.Add(new Vector3(z + internalUnit / 2f, 0, x + internalUnit /2f));	// Sembra un bug ma non lo è, devo invertire x e z per avere la griglia giusta
+		var unitsInY = coll.size.z / internalUnit;
+		var unitsInX = coll.size.x / internalUnit;
 
-		GameObject b = new GameObject("Base");
-		b.transform.position = transform.position;
+		var offsetY = (coll.size.z % internalUnit) / 2;
+		var offsetX = (coll.size.x % internalUnit) / 2;
 
-		foreach(Vector3 point in gridPoints) {
+		for(int x = 0; x < unitsInX; x++)
+			for(int y = 0; y < unitsInY; y++) {
+				var point = new Vector3(x * internalUnit + offsetX - coll.size.z / 2, 0, y * internalUnit + offsetY - coll.size.x / 2);
+				var gridPoint = new Vector2Int(x, y);
+
+				gridPoints.Add(point, gridPoint);
+			}
+
+		foreach(KeyValuePair<Vector3, Vector2Int> entry in gridPoints) {
 			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			cube.transform.parent = b.transform;
+			cube.transform.parent = transform;
 
-			cube.transform.localPosition = point;
+			cube.transform.localPosition = entry.Key;
 			cube.transform.localScale *= 0.01f;
 		}
 	}
@@ -61,19 +75,18 @@ public class TiledGrid : MonoBehaviour
 		} else {
 			timer += Time.deltaTime;
 		}
-
 	}
 
 	public static Vector3 getNearestPoint(Vector3 point) {
 		Vector3 nearestPoint = Vector3.zero;
 		float nearestDistance = Mathf.Infinity;
 
-		foreach(Vector3 gridPoint in gridPoints) {
-			float distance = Vector3.Distance(point, gridPoint + Instance.transform.position);
+		foreach(KeyValuePair<Vector3, Vector2Int> gridPoint in gridPoints) {
+			float distance = Vector3.Distance(point, gridPoint.Key + Instance.transform.position);
 
 			if(distance < nearestDistance) {
 				nearestDistance = distance;
-				nearestPoint = gridPoint + Instance.transform.position;
+				nearestPoint = gridPoint.Key + Instance.transform.position;
 			}
 		}
 

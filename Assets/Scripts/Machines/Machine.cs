@@ -12,6 +12,7 @@ public abstract class Machine : MonoBehaviour {
     public abstract void clearContents();
 	public abstract void onTick();
 
+	public abstract bool allowFluids { get; }
 
 	public abstract void inventoryOperation(InteractionType type, ref Item current);
 

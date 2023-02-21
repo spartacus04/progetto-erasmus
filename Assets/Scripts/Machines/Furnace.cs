@@ -12,6 +12,8 @@ public class Furnace : Machine
 
 	private FurnaceCrafting currentRecipe;
 
+	public override bool allowFluids => false;
+
 	void Awake() {
 		inventory = new Item[2];
 	}
@@ -93,6 +95,5 @@ public class Furnace : Machine
 
 				break;
 		}
-
 	}
 }

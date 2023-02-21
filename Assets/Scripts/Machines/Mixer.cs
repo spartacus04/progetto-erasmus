@@ -2,12 +2,14 @@ using UnityEngine;
 using static Glob;
 
 public class Mixer : Machine {
-	// implement 
-	public int maximumFluids = 3000;
+
+	public override bool allowFluids => true;
+
 	//TODO: aggiungere supporto ai fluidi
 
 	void Start() {
 		inventory = new Item[3];
+		fluids = new Fluid[2];
 	}
 
 	public override void onTick() {
@@ -95,6 +97,51 @@ public class Mixer : Machine {
 					}
 				}
 
+
+				break;
+		}
+	}
+
+	public override void fluidOperation(InteractionType type, ref Fluid current)
+	{
+		switch(type) {
+			case InteractionType.PUSH:
+				if(fluids[0] == null) {
+					fluids[0] = current;
+					current = null;
+				} else if(current.id == fluids[0].id) {
+					fluids[0].quantity += current.quantity;
+
+					if(fluids[0].quantity > DEFAULT_TANK_CAPACITY) {
+						current.quantity = fluids[0].quantity - DEFAULT_TANK_CAPACITY;
+						fluids[0].quantity = DEFAULT_TANK_CAPACITY;
+					} else {
+						current = null;
+					}
+				}
+
+				break;
+			case InteractionType.PULL:
+				if(current == null) {
+					current = fluids[0];
+
+					if(current.quantity > DEFAULT_TANK_CAPACITY) {
+						fluids[0].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
+						current.quantity = DEFAULT_TANK_CAPACITY;
+					}
+					else {
+						fluids[0] = null;
+					}
+				} else if(current.id == fluids[0].id) {
+					current.quantity += fluids[0].quantity;
+
+					if(current.quantity > DEFAULT_TANK_CAPACITY) {
+						fluids[0].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
+						current.quantity = DEFAULT_TANK_CAPACITY;
+					} else {
+						fluids[0] = null;
+					}
+				}
 
 				break;
 		}

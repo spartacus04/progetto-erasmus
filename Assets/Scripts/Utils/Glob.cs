@@ -9,4 +9,6 @@ public static class Glob {
 		PUSH,
 		PULL,
 	}
+
+	public const int DEFAULT_TANK_CAPACITY = 5000;
 }

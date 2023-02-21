@@ -8,6 +8,7 @@ public class GrabbableMachine : GrabbableGeneric
 	public override void OnGrab(GameObject parent)
 	{
 		base.OnGrab(parent);
+		if(machine != null)
 		machine.clearContents();
 	}
 }

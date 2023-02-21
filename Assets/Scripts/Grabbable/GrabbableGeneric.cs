@@ -62,15 +62,21 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 				hologram.SetActive(false);
 			}
 
-			if(TiledGrid.machines.ContainsKey(hologram.transform.position)) {
-				hologram.SetActive(false);
+			if(TiledGrid.gridPoints.ContainsKey(point)) {
+				var gridCoord = TiledGrid.gridPoints[point];
+
+				if(TiledGrid.machines.ContainsKey(gridCoord)) {
+					hologram.SetActive(false);
+				}
 			}
 		}
 	}
 
 	public virtual void OnGrab(GameObject parent)
 	{
-		TiledGrid.machines.Remove(transform.position);
+		if(TiledGrid.gridPoints.ContainsKey(transform.position) && TiledGrid.machines.ContainsKey(TiledGrid.gridPoints[transform.position]))
+			TiledGrid.machines.Remove(TiledGrid.gridPoints[transform.position]);
+
 		transform.parent = parent.transform;
 		Destroy(rb);
 
@@ -94,7 +100,8 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 			rb.isKinematic = true;
 
 			if(machine != null)
-				TiledGrid.machines.Add(transform.position, machine);
+				if(!TiledGrid.machines.ContainsKey(TiledGrid.gridPoints[transform.position]))
+				TiledGrid.machines.Add(TiledGrid.gridPoints[transform.position], machine);
 		}
 
 		hologram.SetActive(false);
