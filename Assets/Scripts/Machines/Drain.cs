@@ -1,8 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 using static Glob;
 
 public class Drain : Machine {
 	public override bool allowFluids => true;
+
+	public List<SpoutCrafting> recipes;
+
+	private int ticks = 0;
 
 	void Start() {
 		inventory = new Item[2];
@@ -10,7 +15,43 @@ public class Drain : Machine {
 	}
 
 	public override void onTick() {
+		if(inventory[0] == null) return;
 
+		recipes.ForEach(recipe => {
+			if(recipe.input.id == inventory[0].id &&
+				inventory[0].amount >= recipe.inputCount &&
+				(inventory[1].id == recipe.output.id ||
+				inventory[1] == null)
+			) {
+				if(inventory[1] != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
+				if(fluids[0] != null && (fluids[0].quantity > DEFAULT_TANK_CAPACITY)) return;
+
+				if(recipe.ticks <= ticks) {
+					inventory[0].amount -= recipe.inputCount;
+
+					if(fluids[0] != null) {
+						fluids[0].quantity += recipe.fluidCount;
+					} else {
+						fluids[0] = recipe.fluid;
+						fluids[0].quantity = recipe.fluidCount;
+					}
+
+					if(inventory[1] != null) {
+						inventory[1].amount += recipe.outputCount;
+					} else {
+						inventory[1] = recipe.output;
+						inventory[1].amount = recipe.outputCount;
+					}
+
+					ticks = 0;
+				} else {
+					ticks++;
+				}
+			}
+			else {
+				ticks = 0;
+			}
+		});
 	}
 
 	public override void clearContents()

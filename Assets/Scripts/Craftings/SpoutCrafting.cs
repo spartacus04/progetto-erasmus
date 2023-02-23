@@ -10,5 +10,7 @@ public class SpoutCrafting : ScriptableObject {
 	public int inputCount;
 	public int outputCount;
 
+	public int fluidCount;
+
 	public int ticks;
 }
