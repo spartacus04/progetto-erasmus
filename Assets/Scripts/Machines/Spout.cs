@@ -20,8 +20,8 @@ public class Spout : Machine {
 		recipes.ForEach(recipe => {
 			if(recipe.input.id == inventory[0].id &&
 				inventory[0].amount >= recipe.inputCount &&
-				(inventory[1].id == recipe.output.id ||
-				inventory[1] == null)
+				(inventory[1] == null ||
+				inventory[1].id == recipe.output.id)
 			) {
 				if(inventory[1] != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
 

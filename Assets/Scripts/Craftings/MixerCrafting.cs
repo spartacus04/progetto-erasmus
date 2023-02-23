@@ -8,7 +8,7 @@ public class MixerCrafting : ScriptableObject {
 	public Fluid fluidInput;
 	public Fluid fluidOutput;
 
-	public int inputCount;
+	public int[] inputCount;
 	public int outputCount;
 	public int fluidInputCount;
 	public int fluidOutputCount;

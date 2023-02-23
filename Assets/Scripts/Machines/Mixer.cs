@@ -8,6 +8,7 @@ public class Mixer : Machine {
 
 	public List<MixerCrafting> recipes;
 	public override bool allowFluids => true;
+	private int ticks = 0;
 
 	void Start() {
 		inventory = new Item[3];
@@ -15,7 +16,61 @@ public class Mixer : Machine {
 	}
 
 	public override void onTick() {
-		//TODO: aggiungere crafting
+		if(inventory[0] == null || inventory[1]) return;
+
+		recipes.ForEach(recipe => {
+			if((recipe.input[0].id == inventory[0].id &&
+				inventory[0].amount >= recipe.inputCount[0] &&
+				recipe.input[1].id == inventory[1].id &&
+				inventory[1].amount >= recipe.inputCount[1] &&
+				(inventory[2] == null || 
+				inventory[2].id == recipe.output.id) && 
+				(fluids[1] == null ||
+				fluids[1].id == recipe.fluidOutput.id)) 
+				||
+				(recipe.input[0].id == inventory[1].id &&
+				inventory[1].amount >= recipe.inputCount[1] &&
+				recipe.input[1].id == inventory[0].id &&
+				inventory[0].amount >= recipe.inputCount[0] &&
+				(inventory[2] == null ||
+				inventory[2].id == recipe.output.id) &&
+				(fluids[1] == null ||
+				fluids[1].id == recipe.fluidOutput.id))
+			) {
+				if(inventory[2] != null && (inventory[2].amount > inventory[2].maxStackSize)) return;
+				if(fluids[1] != null && (fluids[1].quantity > DEFAULT_TANK_CAPACITY)) return;
+
+				if(recipe.ticks <= ticks) {
+					if(inventory[0].id == inventory[0].id) {
+						inventory[0].amount -= recipe.inputCount[0];
+						inventory[1].amount -= recipe.inputCount[1];
+					} else {
+						inventory[0].amount -= recipe.inputCount[1];
+						inventory[1].amount -= recipe.inputCount[0];
+					}
+
+					if(fluids[1] != null) {
+						fluids[1].quantity += recipe.fluidOutputCount;
+					} else {
+						fluids[1] = recipe.fluidOutput;
+						fluids[1].quantity = recipe.fluidOutputCount;
+					}
+
+					if(inventory[2] != null) {
+						inventory[2].amount += recipe.outputCount;
+					} else {
+						inventory[2] = recipe.output;
+						inventory[2].amount = recipe.outputCount;
+					}
+
+					ticks = 0;
+				} else {
+					ticks++;
+				}
+			} else {
+				ticks = 0;
+			}
+		});
 	}
 
 	public override void clearContents() {
