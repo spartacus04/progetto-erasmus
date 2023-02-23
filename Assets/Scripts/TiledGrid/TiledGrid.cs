@@ -53,8 +53,10 @@ public class TiledGrid : MonoBehaviour
 
 		for(int x = 0; x < unitsInX; x++)
 			for(int y = 0; y < unitsInY; y++) {
-				var point = new Vector3(x * internalUnit + offsetX - coll.size.z / 2, 0, y * internalUnit + offsetY - coll.size.x / 2);
-				var gridPoint = new Vector2Int(x, y);
+				// scambio x e y perchè altrimenti non funziona
+				var point = new Vector3(x * internalUnit + offsetX - coll.size.x / 2, 0, y * internalUnit + offsetY - coll.size.z / 2);
+				point = new Vector3(point.z, 0, point.x);
+				var gridPoint = new Vector2Int(y, x);
 
 				gridPoints.Add(point, gridPoint);
 			}
@@ -63,7 +65,7 @@ public class TiledGrid : MonoBehaviour
 			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			cube.transform.parent = transform;
 
-			cube.transform.localPosition = entry.Key;
+			cube.transform.localPosition = new Vector3(entry.Key.z, 0, entry.Key.x);
 			cube.transform.localScale *= 0.01f;
 		}
 	}

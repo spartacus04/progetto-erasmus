@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[RequireComponent(typeof(Rigidbody))]
 public class GrabbableGeneric : MonoBehaviour, IGrabbable
 {
 	public Material hologramMaterial;
@@ -39,7 +38,6 @@ public class GrabbableGeneric : MonoBehaviour, IGrabbable
 		}
 
 		Debug.Log("Machine: " + machine);
-
 		hologram.SetActive(false);
 	}
 

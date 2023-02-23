@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(Machine))]
+[RequireComponent(typeof(Machine))]
 public class GrabbableMachine : GrabbableGeneric
 {
 	public override void OnGrab(GameObject parent)

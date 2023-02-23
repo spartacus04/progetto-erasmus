@@ -1,11 +1,13 @@
 using UnityEngine;
+using System.Collections;
+using System;
+using System.Collections.Generic;
 using static Glob;
 
 public class Mixer : Machine {
 
+	public List<MixerCrafting> recipes;
 	public override bool allowFluids => true;
-
-	//TODO: aggiungere supporto ai fluidi
 
 	void Start() {
 		inventory = new Item[3];
@@ -13,7 +15,7 @@ public class Mixer : Machine {
 	}
 
 	public override void onTick() {
-
+		//TODO: aggiungere crafting
 	}
 
 	public override void clearContents() {
@@ -123,23 +125,23 @@ public class Mixer : Machine {
 				break;
 			case InteractionType.PULL:
 				if(current == null) {
-					current = fluids[0];
+					current = fluids[1];
 
 					if(current.quantity > DEFAULT_TANK_CAPACITY) {
-						fluids[0].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
+						fluids[1].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
 						current.quantity = DEFAULT_TANK_CAPACITY;
 					}
 					else {
-						fluids[0] = null;
+						fluids[1] = null;
 					}
-				} else if(current.id == fluids[0].id) {
-					current.quantity += fluids[0].quantity;
+				} else if(current.id == fluids[1].id) {
+					current.quantity += fluids[1].quantity;
 
 					if(current.quantity > DEFAULT_TANK_CAPACITY) {
-						fluids[0].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
+						fluids[1].quantity = current.quantity - DEFAULT_TANK_CAPACITY;
 						current.quantity = DEFAULT_TANK_CAPACITY;
 					} else {
-						fluids[0] = null;
+						fluids[1] = null;
 					}
 				}
 
