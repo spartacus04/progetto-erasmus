@@ -68,6 +68,16 @@ public class InputManager: MonoBehaviour {
 		}
 
 	}
+    public bool isHoldItem;
+	public void isholdItem(){
+
+		isHoldItem=true;
+	}
+
+	public void notHoldItem(){
+		isHoldItem = false;
+	}
+
 
 
 }

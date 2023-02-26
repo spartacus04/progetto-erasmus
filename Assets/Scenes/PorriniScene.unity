@@ -155,6 +155,7 @@ MonoBehaviour:
   xRNode: 5
   triggerButtonAction: 0
   gripButton: 0
+  isHoldItem: 0
 --- !u!4 &86820716
 Transform:
   m_ObjectHideFlags: 0
@@ -1586,10 +1587,34 @@ MonoBehaviour:
   m_StartingTargetFilter: {fileID: 0}
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1281704438}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: isholdItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1281704438}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: notHoldItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1941,6 +1966,7 @@ MonoBehaviour:
   xRNode: 4
   triggerButtonAction: 0
   gripButton: 0
+  isHoldItem: 0
 --- !u!4 &1281704439
 Transform:
   m_ObjectHideFlags: 0
