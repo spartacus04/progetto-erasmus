@@ -26,4 +26,13 @@ static class ObjectExtensions
 	public static T[] Empty<T>(this T[] self) {
 		return new T[self.Length];
 	}
+
+	public static (int x, int y) indexOf<T>(this T[,] self, T item) {
+		for(int x = 0; x < self.GetLength(0); x++)
+			for(int y = 0; y < self.GetLength(1); y++)
+				if(self[x, y].Equals(item))
+					return (x, y);
+
+		return (-1, -1);
+	}
 }

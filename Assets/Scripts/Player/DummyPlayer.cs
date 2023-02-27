@@ -57,16 +57,20 @@ public class DummyPlayer : MonoBehaviour
 			if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
 				var grabbable = hit.collider.GetComponent<IGrabbable>();
 
+				print(grabbable);
+
 				if(grabbable != null) {
 					grabbedObject = hit.collider.gameObject;
 					grabbable.OnGrab(gameObject);
 					isGrabbing = true;
+					grabbedObject.transform.parent = transform;
 				}
 			}
 		}
 
 		if(Input.GetKeyUp(KeyCode.Mouse0) && isGrabbing) {
 			grabbedObject.GetComponent<IGrabbable>().OnRelease(gameObject);
+			grabbedObject.transform.parent = null;
 			grabbedObject = null;
 			isGrabbing = false;
 		}

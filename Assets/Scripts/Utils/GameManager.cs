@@ -15,4 +15,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	public static List<Fluid> fluids = new List<Fluid>();
+
+	public static void ApplyMaterialRecursively(GameObject obj, Material mat) {
+		if(obj.TryGetComponent<MeshRenderer>(out MeshRenderer component))
+			component.materials = new Material[] { mat };
+
+		foreach(Transform child in obj.transform) {
+			ApplyMaterialRecursively(child.gameObject, mat);
+		}
+	}
 }
