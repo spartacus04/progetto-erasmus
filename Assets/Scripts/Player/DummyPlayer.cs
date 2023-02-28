@@ -31,11 +31,6 @@ public class DummyPlayer : MonoBehaviour
 
 	void Update() {
 		rotate();
-		
-		//TODO: implemento diverse modalità di controllo:
-		// - Design mode
-		// - Draw mode
-		// - Config mode
 		grab();
 		click();
 	}
@@ -56,8 +51,6 @@ public class DummyPlayer : MonoBehaviour
 
 			if(Physics.Raycast(transform.position, transform.forward, out hit, 5f)) {
 				var grabbable = hit.collider.GetComponent<IGrabbable>();
-
-				print(grabbable);
 
 				if(grabbable != null) {
 					grabbedObject = hit.collider.gameObject;
