@@ -13,6 +13,13 @@ public class MechanicalArm : Machine, IClickable
 
 	private bool isSelecting = false;
 
+	public int inp = 0;
+
+	public int outp = 0;
+
+	private int tickcount = 0;
+
+	public int requiredTicks = 5;
 
     void Start() {
         inventory = new Item[1];
@@ -20,7 +27,41 @@ public class MechanicalArm : Machine, IClickable
 
     public override void onTick()
 	{
+		if(output.Count == 0 || input.Count == 0) return;
 
+		if(inventory[0] == null) {
+			if(tickcount == requiredTicks) {
+				tickcount = 0;
+
+				if(inp < input.Count) {
+					var machine = Grid.machines[input[inp].x, input[inp].y];
+
+					machine.inventoryOperation(InteractionType.PULL, ref inventory[0]);
+
+					inp++;
+				} else {
+					inp = 0;
+				}
+			} else {
+				tickcount++;
+			}
+		}
+
+		if(tickcount == requiredTicks) {
+			tickcount = 0;
+
+			if(outp < output.Count) {
+				var machine = Grid.machines[input[inp].x, input[inp].y];
+
+				machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
+
+				outp++;
+			} else {
+				outp = 0;
+			}
+		} else {
+			tickcount++;
+		}
 	}
 
 	public override void clearContents()
