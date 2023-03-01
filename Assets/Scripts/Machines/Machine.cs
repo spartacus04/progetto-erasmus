@@ -6,9 +6,12 @@ using UnityEngine;
 using static Glob;
 
 public abstract class Machine : MonoBehaviour {
+	[HideInInspector]
 	public Vector2Int snappedPos = new Vector2Int(-1, -1);
 
+	[HideInInspector]
 	public Item[] inventory;
+	[HideInInspector]
 	public Fluid[] fluids;
 
     public abstract void clearContents();

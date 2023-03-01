@@ -5,18 +5,25 @@ using System.Linq;
 
 public class MechanicalArm : Machine, IClickable
 {
+	[HideInInspector]
     public List<Vector2Int> input;
 
+	[HideInInspector]
     public List<Vector2Int> output;
 
+	[HideInInspector]
 	public override bool allowFluids => false;
 
+	[HideInInspector]
 	private bool isSelecting = false;
 
+	[HideInInspector]
 	public int inp = 0;
 
+	[HideInInspector]
 	public int outp = 0;
 
+	[HideInInspector]
 	private int tickcount = 0;
 
 	public int requiredTicks = 5;
