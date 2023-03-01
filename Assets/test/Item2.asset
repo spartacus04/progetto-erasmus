@@ -17,4 +17,4 @@ MonoBehaviour:
   description: 
   icon: {fileID: 0}
   maxStackSize: 64
-  amount: 3
+  amount: 0
