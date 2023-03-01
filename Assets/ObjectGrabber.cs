@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ObjectGrabber : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
+    [SerializeField]
     private bool isGrabbed = false;
 
     void Start()

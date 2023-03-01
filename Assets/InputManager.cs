@@ -9,8 +9,11 @@ public class InputManager: MonoBehaviour {
 	private XRNode xRNode = XRNode.LeftHand;
 	private List < InputDevice > devices = new List < InputDevice > ();
 	private InputDevice device;
-	void Start() {
 
+[SerializeField]
+   Animator hands;
+	
+	void Start() {
 
 	}
 
@@ -58,6 +61,10 @@ public class InputManager: MonoBehaviour {
 		if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction) && triggerButtonAction) {
 
 			Debug.Log($"Trigger button activated {triggerButtonAction}");
+             hands.SetTrigger("index");
+		}else if(!triggerButtonAction){
+			
+		    hands.SetTrigger("idle");
 
 		}
 
