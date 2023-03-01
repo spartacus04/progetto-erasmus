@@ -62,18 +62,16 @@ public class Grid : MonoBehaviour
 		return (distance, coords);
 	}
 
-	public static void addMachine(Machine machine, Vector2Int coords) {
-
-	}
-
 	public void Update() {
 		if(timer >= TICK_RATE) {
 			timer = 0;
 
 			for(int x = 0; x < width; x++)
 				for(int y = 0; y < height; y++)
-					if(machines[x, y] != null)
+					if(machines[x, y] != null) {
+						print($"Ticking machine at {x}, {y}");
 						machines[x, y].onTick();
+					}
 		} else {
 			timer += Time.deltaTime;
 		}

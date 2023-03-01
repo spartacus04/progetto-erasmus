@@ -92,7 +92,6 @@ public class Furnace : Machine
 					}
 				}
 
-
 				break;
 		}
 	}

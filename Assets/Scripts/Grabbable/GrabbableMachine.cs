@@ -58,7 +58,10 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 
 		rb.constraints = RigidbodyConstraints.FreezeAll;
 
-		Grid.machines[machine.snappedPos.x, machine.snappedPos.y] = null;
+		try {
+			Grid.machines[machine.snappedPos.x, machine.snappedPos.y] = null;
+		}
+		catch { }
 	}
 
 	public void OnRelease()
