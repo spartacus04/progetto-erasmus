@@ -54,7 +54,7 @@ public class DummyPlayer : MonoBehaviour
 
 				if(grabbable != null) {
 					grabbedObject = hit.collider.gameObject;
-					grabbable.OnGrab(gameObject);
+					grabbable.OnGrab();
 					isGrabbing = true;
 					grabbedObject.transform.parent = transform;
 				}
@@ -62,7 +62,7 @@ public class DummyPlayer : MonoBehaviour
 		}
 
 		if(Input.GetKeyUp(KeyCode.Mouse0) && isGrabbing) {
-			grabbedObject.GetComponent<IGrabbable>().OnRelease(gameObject);
+			grabbedObject.GetComponent<IGrabbable>().OnRelease();
 			grabbedObject.transform.parent = null;
 			grabbedObject = null;
 			isGrabbing = false;

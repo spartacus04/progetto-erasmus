@@ -6,6 +6,6 @@ using UnityEngine;
 
 public interface IGrabbable
 {
-	void OnGrab(GameObject parent);
-	void OnRelease(GameObject parent);
+	void OnGrab();
+	void OnRelease();
 }

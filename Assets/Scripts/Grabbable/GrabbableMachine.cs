@@ -50,7 +50,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		}
 	}
 
-	public void OnGrab(GameObject parent)
+	public void OnGrab()
 	{
 		rb.isKinematic = false;
 		isGrabbed = true;
@@ -61,7 +61,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		Grid.machines[machine.snappedPos.x, machine.snappedPos.y] = null;
 	}
 
-	public void OnRelease(GameObject parent)
+	public void OnRelease()
 	{
 		isGrabbed = false;
 		rb.constraints = RigidbodyConstraints.FreezeRotation;

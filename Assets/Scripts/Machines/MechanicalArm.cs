@@ -43,7 +43,8 @@ public class MechanicalArm : Machine, IClickable
 				if(inp < input.Count) {
 					var machine = Grid.machines[input[inp].x, input[inp].y];
 
-					machine.inventoryOperation(InteractionType.PULL, ref inventory[0]);
+					if(machine != null)
+						machine.inventoryOperation(InteractionType.PULL, ref inventory[0]);
 
 					inp++;
 				} else {
@@ -60,7 +61,8 @@ public class MechanicalArm : Machine, IClickable
 			if(outp < output.Count) {
 				var machine = Grid.machines[input[inp].x, input[inp].y];
 
-				machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
+				if(machine != null)
+					machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
 
 				outp++;
 			} else {
