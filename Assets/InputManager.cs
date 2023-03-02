@@ -4,26 +4,31 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.XR;
 
-public class InputManager: MonoBehaviour {
+public class InputManager : MonoBehaviour
+{
 	[SerializeField]
 	private XRNode xRNode = XRNode.LeftHand;
-	private List < InputDevice > devices = new List < InputDevice > ();
+	private List<InputDevice> devices = new List<InputDevice>();
 	private InputDevice device;
 
-[SerializeField]
-   Animator hands;
-	
-	void Start() {
+	[SerializeField]
+	Animator hands;
+
+	void Start()
+	{
 
 	}
 
-	void GetDevice() {
+	void GetDevice()
+	{
 		InputDevices.GetDevicesAtXRNode(xRNode, devices);
 		device = devices.FirstOrDefault();
 	}
-	void OnEnable() {
+	void OnEnable()
+	{
 
-		if (!device.isValid) {
+		if (!device.isValid)
+		{
 			GetDevice();
 		}
 
@@ -32,8 +37,10 @@ public class InputManager: MonoBehaviour {
 	int cont = 0;
 
 	// Update is called once per frame
-	void Update() {
-		if (!device.isValid) {
+	void Update()
+	{
+		if (!device.isValid)
+		{
 			GetDevice();
 		}
 		/*List<InputFeatureUsage> features = new List<InputFeatureUsage>();
@@ -53,29 +60,30 @@ public class InputManager: MonoBehaviour {
 
 	public bool triggerButtonAction = false;
 	public bool gripButton = false;
-	void input() {
+	void input()
+	{
 
 
 
 
-		if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction) && triggerButtonAction) {
+		if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction) && triggerButtonAction)
+		{
 
 			Debug.Log($"Trigger button activated {triggerButtonAction}");
-             hands.SetTrigger("index");
-		}else if(!triggerButtonAction){
-			
-		    hands.SetTrigger("idle");
-
-		}
-
-		if (device.TryGetFeatureValue(CommonUsages.gripButton, out gripButton) && gripButton) {
-
+			hands.SetFloat("speed", 1);
+			hands.SetTrigger("point");
+		} else if (device.TryGetFeatureValue(CommonUsages.gripButton, out gripButton) && gripButton)
+		{
 			Debug.Log($"Trigger button activated {gripButton}");
+			hands.SetFloat("speed", 1);
+			hands.SetTrigger("grab");
+		}else{
+		    hands.SetFloat("speed", -1);
 
 		}
 
 	}
-   
+
 
 
 
