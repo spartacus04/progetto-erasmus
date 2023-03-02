@@ -32,7 +32,7 @@ public class ItemOutput : Machine
 				else {
 					inventory[0].amount = 0;
 				}
-			} else if(current.id == inventory[0].id) {
+			} else if(current.name == inventory[0].name) {
 				current.amount += inventory[0].amount;
 
 				if(current.amount > current.maxStackSize) {

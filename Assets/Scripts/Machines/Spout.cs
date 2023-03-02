@@ -18,10 +18,10 @@ public class Spout : Machine {
 		if(inventory[0] == null) return;
 
 		recipes.ForEach(recipe => {
-			if(recipe.input.id == inventory[0].id &&
+			if(recipe.input.name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount &&
 				(inventory[1] == null ||
-				inventory[1].id == recipe.output.id)
+				inventory[1].name == recipe.output.name)
 			) {
 				if(inventory[1] != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
 
@@ -60,7 +60,7 @@ public class Spout : Machine {
 				if(inventory[0] == null) {
 					inventory[0] = current;
 					current = null;
-				} else if(current.id == inventory[0].id) {
+				} else if(current.name == inventory[0].name) {
 					inventory[0].amount += current.amount;
 
 					if(inventory[0].amount > inventory[0].maxStackSize) {
@@ -83,7 +83,7 @@ public class Spout : Machine {
 					else {
 						inventory[0] = null;
 					}
-				} else if(current.id == inventory[0].id) {
+				} else if(current.name == inventory[0].name) {
 					current.amount += inventory[0].amount;
 
 					if(current.amount > current.maxStackSize) {

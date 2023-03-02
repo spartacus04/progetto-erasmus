@@ -22,21 +22,21 @@ public class Mixer : Machine {
 		if(inventory[0] == null || inventory[1] == null) return;
 
 		recipes.ForEach(recipe => {
-			if((recipe.input[0].id == inventory[0].id &&
+			if((recipe.input[0].name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount[0] &&
-				recipe.input[1].id == inventory[1].id &&
+				recipe.input[1].name == inventory[1].name &&
 				inventory[1].amount >= recipe.inputCount[1] &&
 				(inventory[2] == null || 
-				inventory[2].id == recipe.output.id) && 
+				inventory[2].name == recipe.output.name) && 
 				(fluids[1] == null ||
 				fluids[1].id == recipe.fluidOutput.id)) 
 				||
-				(recipe.input[0].id == inventory[1].id &&
+				(recipe.input[0].name == inventory[1].name &&
 				inventory[1].amount >= recipe.inputCount[1] &&
-				recipe.input[1].id == inventory[0].id &&
+				recipe.input[1].name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount[0] &&
 				(inventory[2] == null ||
-				inventory[2].id == recipe.output.id) &&
+				inventory[2].name == recipe.output.name) &&
 				(fluids[1] == null ||
 				fluids[1].id == recipe.fluidOutput.id))
 			) {
@@ -46,7 +46,7 @@ public class Mixer : Machine {
 				StartCoroutine(startAnim());
 
 				if(recipe.ticks <= ticks) {
-					if(inventory[0].id == inventory[0].id) {
+					if(inventory[0].name == inventory[0].name) {
 						inventory[0].amount -= recipe.inputCount[0];
 						inventory[1].amount -= recipe.inputCount[1];
 					} else {
@@ -92,7 +92,7 @@ public class Mixer : Machine {
 		switch(type) {
 			case InteractionType.PUSH:
 				if(inventory[0] == null) {
-					if(inventory[1] != null && inventory[1].id == current.id) {
+					if(inventory[1] != null && inventory[1].name == current.name) {
 						inventory[1].amount += current.amount;
 
 						if(inventory[1].amount > inventory[1].maxStackSize) {
@@ -105,7 +105,7 @@ public class Mixer : Machine {
 						inventory[0] = current;
 						current = null;
 					}
-				} else if(current.id == inventory[0].id) {
+				} else if(current.name == inventory[0].name) {
 					inventory[0].amount += current.amount;
 
 					if(inventory[0].amount > inventory[0].maxStackSize) {
@@ -117,7 +117,7 @@ public class Mixer : Machine {
 				}
 
 				if(inventory[1] == null) {
-					if(inventory[0] != null && inventory[0].id == current.id) {
+					if(inventory[0] != null && inventory[0].name == current.name) {
 						inventory[0].amount += current.amount;
 
 						if(inventory[0].amount > inventory[0].maxStackSize) {
@@ -130,7 +130,7 @@ public class Mixer : Machine {
 						inventory[1] = current;
 						current = null;
 					}
-				} else if(current.id == inventory[1].id) {
+				} else if(current.name == inventory[1].name) {
 					inventory[1].amount += current.amount;
 
 					if(inventory[1].amount > inventory[1].maxStackSize) {
@@ -153,7 +153,7 @@ public class Mixer : Machine {
 					else {
 						inventory[2] = null;
 					}
-				} else if(current.id == inventory[2].id) {
+				} else if(current.name == inventory[2].name) {
 					current.amount += inventory[2].amount;
 
 					if(current.amount > current.maxStackSize) {
