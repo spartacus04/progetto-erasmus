@@ -106,7 +106,7 @@ public class Spout : Machine {
 		if(fluids[0] == null) {
 			fluids[0] = current;
 			current = null;
-		} else if(current.id == fluids[0].id) {
+		} else if(current.name == fluids[0].name) {
 			fluids[0].quantity += current.quantity;
 
 			if(fluids[0].quantity > DEFAULT_TANK_CAPACITY) {

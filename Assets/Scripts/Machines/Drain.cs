@@ -120,7 +120,7 @@ public class Drain : Machine {
 			else {
 				fluids[0] = null;
 			}
-		} else if(current.id == fluids[0].id) {
+		} else if(current.name == fluids[0].name) {
 			current.quantity += fluids[0].quantity;
 
 			if(current.quantity > DEFAULT_TANK_CAPACITY) {

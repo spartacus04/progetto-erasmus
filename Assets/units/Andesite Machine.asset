@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1deca11ff05f0bd4d921756255db169f, type: 3}
-  m_Name: Kelp
+  m_Name: Andesite Machine
   m_EditorClassIdentifier: 
-  name: Kelp
+  name: Andesite Machine
   description: 
-  icon: {fileID: 21300000, guid: 572b24280f083fe72a773ca86ca14b96, type: 3}
+  icon: {fileID: 21300000, guid: 5b6e5062eae9332418b998911c9306be, type: 3}
   maxStackSize: 64
   amount: 0

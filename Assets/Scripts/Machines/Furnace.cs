@@ -16,6 +16,8 @@ public class Furnace : Machine
 	[HideInInspector]
 	public int requiredTicks = 0;
 
+	private int currentRecipe = -1;
+
 	void Awake() {
 		inventory = new Item[2];
 	}
@@ -23,13 +25,17 @@ public class Furnace : Machine
 	public override void onTick() {
 		if(inventory[0] == null) return;
 
-		recipes.ForEach(recipe => {
+		recipes.ForEachIndexed((recipe, i)=> {
 			if(recipe.input.name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount &&
 				(inventory[1] == null ||
 				inventory[1].name == recipe.output.name)
 			) {
-				if(inventory != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
+				if(inventory[1] != null && inventory[1].amount > inventory[1].maxStackSize) return;
+
+				if(currentRecipe == -1) {
+					currentRecipe = i;
+				}
 
 				requiredTicks = recipe.ticks;
 
@@ -39,18 +45,21 @@ public class Furnace : Machine
 					if(inventory[1] != null) {
 						inventory[1].amount += recipe.outputCount;
 					} else {
-						inventory[1] = recipe.output;
+						inventory[1] = Instantiate(recipe.output);
 						inventory[1].amount = recipe.outputCount;
 					}
 
 					ticks = 0;
+					currentRecipe = -1;
 				} else {
 					ticks++;
 				}
 			}
 			else {
-				ticks = 0;
-				requiredTicks = 0;
+				if(currentRecipe == -1 || currentRecipe == i) {
+					ticks = 0;
+					requiredTicks = 0;
+				}
 			}
 		});
 	}

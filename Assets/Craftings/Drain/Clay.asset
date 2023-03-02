@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bca29e95587b6b478a737d8c06a592d, type: 3}
+  m_Name: Clay
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 48996b09e272afd47b91fc359e2c7d96, type: 2}
+  output: {fileID: 11400000, guid: e5082a9a60e719f4d9d517b7b7e092f6, type: 2}
+  fluid: {fileID: 11400000, guid: ccf14f57a2c528141ba6b036b7d90fb8, type: 2}
+  inputCount: 1
+  outputCount: 1
+  fluidCount: 0
+  ticks: 5

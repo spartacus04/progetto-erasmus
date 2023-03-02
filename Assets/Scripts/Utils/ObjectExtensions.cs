@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 // Aggiunge tutti questi medoti statici a ogni oggetto
@@ -34,5 +35,15 @@ static class ObjectExtensions
 					return (x, y);
 
 		return (-1, -1);
+	}
+
+	public static void ForEachIndexed<T>(this T[] self, Action<T, int> block) {
+		for(int i = 0; i < self.Length; i++)
+			block(self[i], i);
+	}
+
+	public static void ForEachIndexed<T>(this List<T> self, Action<T, int> block) {
+		for(int i = 0; i < self.Count; i++)
+			block(self[i], i);
 	}
 }

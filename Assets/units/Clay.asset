@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1deca11ff05f0bd4d921756255db169f, type: 3}
-  m_Name: Kelp
+  m_Name: Clay
   m_EditorClassIdentifier: 
-  name: Kelp
+  name: Clay
   description: 
-  icon: {fileID: 21300000, guid: 572b24280f083fe72a773ca86ca14b96, type: 3}
+  icon: {fileID: 21300000, guid: f7f351872406ccb49b901d2cf99e6e2e, type: 3}
   maxStackSize: 64
   amount: 0

@@ -21,6 +21,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 
 		hologram = Instantiate(gameObject);
 		Destroy(hologram.GetComponent<GrabbableMachine>());
+		Destroy(hologram.GetComponent<XRGrabInteractable>());
 		Destroy(hologram.GetComponent<Rigidbody>());
 		Destroy(hologram.GetComponent<Collider>());
 		hologram.SetActive(false);

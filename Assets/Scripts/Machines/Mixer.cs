@@ -29,7 +29,7 @@ public class Mixer : Machine {
 				(inventory[2] == null || 
 				inventory[2].name == recipe.output.name) && 
 				(fluids[1] == null ||
-				fluids[1].id == recipe.fluidOutput.id)) 
+				fluids[1].name == recipe.fluidOutput.name)) 
 				||
 				(recipe.input[0].name == inventory[1].name &&
 				inventory[1].amount >= recipe.inputCount[1] &&
@@ -38,7 +38,7 @@ public class Mixer : Machine {
 				(inventory[2] == null ||
 				inventory[2].name == recipe.output.name) &&
 				(fluids[1] == null ||
-				fluids[1].id == recipe.fluidOutput.id))
+				fluids[1].name == recipe.fluidOutput.name))
 			) {
 				if(inventory[2] != null && (inventory[2].amount > inventory[2].maxStackSize)) return;
 				if(fluids[1] != null && (fluids[1].quantity > DEFAULT_TANK_CAPACITY)) return;
@@ -176,7 +176,7 @@ public class Mixer : Machine {
 				if(fluids[0] == null) {
 					fluids[0] = current;
 					current = null;
-				} else if(current.id == fluids[0].id) {
+				} else if(current.name == fluids[0].name) {
 					fluids[0].quantity += current.quantity;
 
 					if(fluids[0].quantity > DEFAULT_TANK_CAPACITY) {
@@ -199,7 +199,7 @@ public class Mixer : Machine {
 					else {
 						fluids[1] = null;
 					}
-				} else if(current.id == fluids[1].id) {
+				} else if(current.name == fluids[1].name) {
 					current.quantity += fluids[1].quantity;
 
 					if(current.quantity > DEFAULT_TANK_CAPACITY) {
