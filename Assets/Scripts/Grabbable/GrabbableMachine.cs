@@ -74,12 +74,15 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 	{
 		isGrabbed = false;
 		rb.constraints = RigidbodyConstraints.FreezeRotation;
-
+		rb.isKinematic = false;
+        
 		if(hologram.activeSelf) {
 			var (_, coords) = Grid.nearestGridPoint(transform.position);
 
-			if(Grid.machines[coords.x, coords.y] == null)
+			if(Grid.machines[coords.x, coords.y] == null){
 				machine.ApplyPosition(coords);
+			   		transform.rotation = Quaternion.identity; 
+			}
 		}
 
 		hologram.SetActive(false);
