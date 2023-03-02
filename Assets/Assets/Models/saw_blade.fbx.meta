@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9bd390d6ac49cc1008be0dae7a8a146d
+guid: e0d28fd5f673a0d40a569fcf4cb4e747
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: saw
-    second: {fileID: 2100000, guid: b30ac9fdc2f12faa4a402f9bcee86bf3, type: 2}
+      name: saw.png
+    second: {fileID: 2100000, guid: 41ed38bf61f0c3641a37dc8c91ef3c79, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

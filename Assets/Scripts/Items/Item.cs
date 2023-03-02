@@ -12,5 +12,6 @@ public class Item : ScriptableObject
 	public Sprite icon;
 
 	public int maxStackSize = 64;
+	[HideInInspector]
 	public int amount = 0;
 }

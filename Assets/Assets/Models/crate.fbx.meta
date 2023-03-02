@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: b863790b0df1e4b40b1d042e19730b75
+guid: 710d433435ec5c647a471c94f74919ec
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crate_brass.png
+    second: {fileID: 2100000, guid: 587ee9c0c88949e49aabbb1ff532ddf0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
