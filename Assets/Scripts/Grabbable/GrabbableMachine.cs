@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Machine), typeof(Rigidbody))]
+[RequireComponent(typeof(Machine), typeof(Rigidbody), typeof(XRGrabInteractable))]
 public class GrabbableMachine : MonoBehaviour, IGrabbable
 {
 	public Material hologramMaterial;
@@ -12,6 +13,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 	private Machine machine;
 
 	private GameObject hologram;
+	private XRGrabInteractable grabInteractable;
 
 	public void Start() {
 		rb = GetComponent<Rigidbody>();
@@ -24,6 +26,10 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		hologram.SetActive(false);
 
 		GameManager.ApplyMaterialRecursively(hologram, hologramMaterial);
+
+		var grabInteractable = GetComponent<XRGrabInteractable>();
+		grabInteractable.selectEntered.AddListener(grabEvent);
+		grabInteractable.selectExited.AddListener(releaseEvent);
 	}
 
 	public void Update() {
@@ -78,4 +84,8 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 
 		hologram.SetActive(false);
 	}
+
+
+	public void grabEvent(SelectEnterEventArgs args) => OnGrab();
+	public void releaseEvent(SelectExitEventArgs args) => OnRelease();
 }

@@ -8,9 +8,13 @@ public class Furnace : Machine
 {
 	public List<FurnaceCrafting> recipes;
 
-	private int ticks = 0;
+	[HideInInspector]
+	public int ticks = 0;
 
 	public override bool allowFluids => false;
+
+	[HideInInspector]
+	public int requiredTicks = 0;
 
 	void Awake() {
 		inventory = new Item[2];
@@ -26,6 +30,8 @@ public class Furnace : Machine
 				inventory[1].id == recipe.output.id)
 			) {
 				if(inventory != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
+
+				requiredTicks = recipe.ticks;
 
 				if(recipe.ticks <= ticks) {
 					inventory[0].amount -= recipe.inputCount;
@@ -44,6 +50,7 @@ public class Furnace : Machine
 			}
 			else {
 				ticks = 0;
+				requiredTicks = 0;
 			}
 		});
 	}

@@ -22,13 +22,6 @@ public class Mixer : Machine {
 		if(inventory[0] == null || inventory[1] == null) return;
 
 		recipes.ForEach(recipe => {
-			print("1: " + (recipe.input[0].id == inventory[0].id));
-			print("2: " + (inventory[0].amount >= recipe.inputCount[0]));
-			print("3: " + (recipe.input[1].id == inventory[1].id));
-			print("4: " + (inventory[1].amount >= recipe.inputCount[1]));
-			print("5: " + (inventory[2] == null || inventory[2].id == recipe.output.id));
-			print("6: " + (fluids[1] == null || fluids[1].id == recipe.fluidOutput.id));
-
 			if((recipe.input[0].id == inventory[0].id &&
 				inventory[0].amount >= recipe.inputCount[0] &&
 				recipe.input[1].id == inventory[1].id &&
@@ -47,8 +40,6 @@ public class Mixer : Machine {
 				(fluids[1] == null ||
 				fluids[1].id == recipe.fluidOutput.id))
 			) {
-
-
 				if(inventory[2] != null && (inventory[2].amount > inventory[2].maxStackSize)) return;
 				if(fluids[1] != null && (fluids[1].quantity > DEFAULT_TANK_CAPACITY)) return;
 
