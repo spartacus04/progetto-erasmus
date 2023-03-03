@@ -6,16 +6,19 @@ public class FurnaceWrapper : MonoBehaviour {
 
 	private Furnace furnace;
 
+	private MeshRenderer meshRenderer;
+
 	private void Start() {
 		furnace = GetComponent<Furnace>();
-		offMaterial = GetComponent<MeshRenderer>().material;
+		meshRenderer = GetComponentInChildren<MeshRenderer>();
+		offMaterial = meshRenderer.material;
 	}
 
 	public void Update() {
 		if(furnace.ticks > 0) {
-			GetComponent<MeshRenderer>().material = onMaterial;
+			meshRenderer.material = onMaterial;
 		} else {
-			GetComponent<MeshRenderer>().material = offMaterial;
+			meshRenderer.material = offMaterial;
 		}
 	}
 }

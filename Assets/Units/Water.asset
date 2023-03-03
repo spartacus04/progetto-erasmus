@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c84e691495f8dbf45b38178176a49934, type: 3}
-  m_Name: EmptyFluid
+  m_Name: Water
   m_EditorClassIdentifier: 
-  name: Unused
+  name: Water
   description: 
-  texture: {fileID: 0}
+  texture: {fileID: 21300000, guid: 6d3f1842ececda745930a79f0f210d36, type: 3}
   quantity: 0

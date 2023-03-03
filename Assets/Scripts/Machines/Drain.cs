@@ -15,6 +15,7 @@ public class Drain : Machine {
 
 	public MeshRenderer fluidRenderer;
 
+
 	void Start() {
 		inventory = new Item[2];
 		fluids = new Fluid[1];
@@ -22,22 +23,21 @@ public class Drain : Machine {
 
 	public void Update() {
 		if(inventory[0] != null)
-			spriteRenderers[0].sprite = inventory[0].sprite;
+			spriteRenderers[0].sprite = inventory[0].icon;
 		else
 			spriteRenderers[0].sprite = null;
 
 		if(inventory[1] != null)
-			spriteRenderers[1].sprite = inventory[1].sprite;
+			spriteRenderers[1].sprite = inventory[1].icon;
 		else
 			spriteRenderers[1].sprite = null;
 
 		if(fluids[0] != null) {
 			// set same texture
+			fluidRenderer.gameObject.SetActive(true);
 			fluidRenderer.material.mainTexture = fluids[0].texture.texture;
-			fluidRenderer.material.SetFloat("_Fill", fluids[0].quantity / DEFAULT_TANK_CAPACITY);
 		} else {
-			fluidRenderer.material.color = ;
-			fluidRenderer.material.SetFloat("_Fill", 0);
+			fluidRenderer.gameObject.SetActive(false);
 		}
 	}
 
