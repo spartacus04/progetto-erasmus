@@ -11,9 +11,34 @@ public class Drain : Machine {
 
 	private int ticks = 0;
 
+	public SpriteRenderer[] spriteRenderers;
+
+	public MeshRenderer fluidRenderer;
+
 	void Start() {
 		inventory = new Item[2];
 		fluids = new Fluid[1];
+	}
+
+	public void Update() {
+		if(inventory[0] != null)
+			spriteRenderers[0].sprite = inventory[0].sprite;
+		else
+			spriteRenderers[0].sprite = null;
+
+		if(inventory[1] != null)
+			spriteRenderers[1].sprite = inventory[1].sprite;
+		else
+			spriteRenderers[1].sprite = null;
+
+		if(fluids[0] != null) {
+			// set same texture
+			fluidRenderer.material.mainTexture = fluids[0].texture.texture;
+			fluidRenderer.material.SetFloat("_Fill", fluids[0].quantity / DEFAULT_TANK_CAPACITY);
+		} else {
+			fluidRenderer.material.color = ;
+			fluidRenderer.material.SetFloat("_Fill", 0);
+		}
 	}
 
 	public override void onTick() {
