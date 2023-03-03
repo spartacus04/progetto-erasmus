@@ -12,11 +12,17 @@ public class ItemOutput : Machine
 
 	public override bool allowFluids => false;
 
+	private SpriteRenderer spriteRenderer;
+
 	public override void clearContents() { }
 
 	public void Start() {
 		inventory = new Item[1];
 		inventory[0] = Instantiate(item);
+
+		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+		spriteRenderer.sprite = inventory[0].icon;
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current)

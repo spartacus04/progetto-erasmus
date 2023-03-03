@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Linq;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Machine), typeof(Rigidbody), typeof(XRGrabInteractable))]
 public class GrabbableMachine : MonoBehaviour, IGrabbable
@@ -15,6 +17,8 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 	private GameObject hologram;
 	private XRGrabInteractable grabInteractable;
 
+	private Quaternion initialRotation;
+
 	public void Start() {
 		rb = GetComponent<Rigidbody>();
 		machine = GetComponent<Machine>();
@@ -24,6 +28,9 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		Destroy(hologram.GetComponent<XRGrabInteractable>());
 		Destroy(hologram.GetComponent<Rigidbody>());
 		Destroy(hologram.GetComponent<Collider>());
+		Destroy(hologram.GetComponent<Machine>());
+		hologram.GetComponentsInChildren<SpriteRenderer>().ForEach(s => Destroy(s));
+		
 		hologram.SetActive(false);
 
 		GameManager.ApplyMaterialRecursively(hologram, hologramMaterial);
@@ -31,6 +38,8 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		var grabInteractable = GetComponent<XRGrabInteractable>();
 		grabInteractable.selectEntered.AddListener(grabEvent);
 		grabInteractable.selectExited.AddListener(releaseEvent);
+
+		initialRotation = transform.rotation;
 	}
 
 	public void Update() {
@@ -39,7 +48,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		rb.velocity = Vector3.zero;
 		rb.angularVelocity = Vector3.zero;
 
-		transform.rotation = Quaternion.identity;
+		transform.rotation = initialRotation;
 
 		var (dist, coords) = Grid.nearestGridPoint(transform.position);
 
@@ -82,7 +91,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 
 			if(Grid.machines[coords.x, coords.y] == null){
 				machine.ApplyPosition(coords);
-			   		transform.rotation = Quaternion.identity; 
+			   	transform.rotation = initialRotation; 
 			}
 		}
 

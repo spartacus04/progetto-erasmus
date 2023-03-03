@@ -10,6 +10,9 @@ public class Mixer : Machine {
 	public override bool allowFluids => true;
 	private int ticks = 0;
 	private Animator animator;
+	public SpriteRenderer[] sprites;
+
+	private int currentRecipe = -1;
 
 	void Start() {
 		inventory = new Item[3];
@@ -18,10 +21,27 @@ public class Mixer : Machine {
 		animator = GetComponent<Animator>();
 	}
 
+	public void Update() {
+		if(inventory[0] != null)
+			sprites[0].sprite = inventory[0].icon;
+		else
+			sprites[0].sprite = null;
+
+		if(inventory[1] != null)
+			sprites[1].sprite = inventory[1].icon;
+		else
+			sprites[1].sprite = null;
+
+		if(inventory[2] != null)
+			sprites[2].sprite = inventory[2].icon;
+		else
+			sprites[2].sprite = null;
+	}
+
 	public override void onTick() {
 		if(inventory[0] == null || inventory[1] == null) return;
 
-		recipes.ForEach(recipe => {
+		recipes.ForEachIndexed((recipe, i) => {
 			if((recipe.input[0].name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount[0] &&
 				recipe.input[1].name == inventory[1].name &&
@@ -43,6 +63,10 @@ public class Mixer : Machine {
 				if(inventory[2] != null && (inventory[2].amount > inventory[2].maxStackSize)) return;
 				if(fluids[1] != null && (fluids[1].quantity > DEFAULT_TANK_CAPACITY)) return;
 
+				if(currentRecipe == -1) {
+					currentRecipe = i;
+				}
+
 				StartCoroutine(startAnim());
 
 				if(recipe.ticks <= ticks) {
@@ -58,7 +82,7 @@ public class Mixer : Machine {
 						if(fluids[1] != null) {
 							fluids[1].quantity += recipe.fluidOutputCount;
 						} else {
-							fluids[1] = recipe.fluidOutput;
+							fluids[1] = Instantiate(recipe.fluidOutput);
 							fluids[1].quantity = recipe.fluidOutputCount;
 						}
 					}
@@ -67,7 +91,7 @@ public class Mixer : Machine {
 						if(inventory[2] != null) {
 							inventory[2].amount += recipe.outputCount;
 						} else {
-							inventory[2] = recipe.output;
+							inventory[2] = Instantiate(recipe.output);
 							inventory[2].amount = recipe.outputCount;
 						}
 					}
@@ -77,8 +101,10 @@ public class Mixer : Machine {
 					ticks++;
 				}
 			} else {
-				ticks = 0;
-				StartCoroutine(stopAnim());
+				if(currentRecipe == -1 || currentRecipe == i) {
+					ticks = 0;
+					StartCoroutine(stopAnim());
+				}
 			}
 		});
 	}

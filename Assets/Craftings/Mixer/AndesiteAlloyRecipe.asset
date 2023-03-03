@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fcd9b746d938e909d571d2be96124d, type: 3}
+  m_Name: AndesiteAlloyRecipe
+  m_EditorClassIdentifier: 
+  input:
+  - {fileID: 11400000, guid: d87413fb356d9bd4fbc436efc90bb226, type: 2}
+  - {fileID: 11400000, guid: 358648a512b800f44bac41f1b77f1ece, type: 2}
+  output: {fileID: 11400000, guid: 466ec3b39d59c9d47a48f322ea77e5e6, type: 2}
+  fluidInput: {fileID: 0}
+  fluidOutput: {fileID: 0}
+  inputCount: 0100000001000000
+  outputCount: 2
+  fluidInputCount: 0
+  fluidOutputCount: 0
+  ticks: 5

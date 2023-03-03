@@ -46,4 +46,9 @@ static class ObjectExtensions
 		for(int i = 0; i < self.Count; i++)
 			block(self[i], i);
 	}
+
+	public static void ForEach<T>(this T[] self, Action<T> block) {
+		for(int i = 0; i < self.Length; i++)
+			block(self[i]);
+	}
 }

@@ -5,6 +5,8 @@ using static Glob;
 public class Drain : Machine {
 	public override bool allowFluids => true;
 
+	public bool destroyExcessFluids = false;
+
 	public List<SpoutCrafting> recipes;
 
 	private int ticks = 0;
@@ -24,7 +26,7 @@ public class Drain : Machine {
 				inventory[1].name == recipe.output.name)
 			) {
 				if(inventory[1] != null && (inventory[1].amount > inventory[1].maxStackSize)) return;
-				if(fluids[0] != null && (fluids[0].quantity > DEFAULT_TANK_CAPACITY)) return;
+				if(fluids[0] != null && (fluids[0].quantity > DEFAULT_TANK_CAPACITY) && !destroyExcessFluids) return;
 
 				if(recipe.ticks <= ticks) {
 					inventory[0].amount -= recipe.inputCount;
