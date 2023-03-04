@@ -19,6 +19,8 @@ public abstract class Machine : MonoBehaviour {
 
 	public abstract bool allowFluids { get; }
 
+	public Transform armTransform;
+
 	public abstract void inventoryOperation(InteractionType type, ref Item current);
 
 	public virtual void fluidOperation(InteractionType type, ref Fluid current) { }

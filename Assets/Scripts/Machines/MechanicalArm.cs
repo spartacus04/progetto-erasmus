@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using static Glob;
 using System.Linq;
@@ -28,23 +30,40 @@ public class MechanicalArm : Machine, IClickable
 
 	public int requiredTicks = 5;
 
+	public SpriteRenderer spriteRenderer;
+
+	public Transform armBase;
+
+	public Transform arm;
+
     void Start() {
         inventory = new Item[1];
     }
+
+	void Update() {
+		if(inventory[0] != null)
+			spriteRenderer.sprite = inventory[0].icon;
+		else
+			spriteRenderer.sprite = null;
+	}
 
     public override void onTick()
 	{
 		if(output.Count == 0 || input.Count == 0) return;
 
 		if(inventory[0] == null) {
+			var machine = Grid.machines[input[inp].x, input[inp].y];
+
+			StartCoroutine(getObj(machine.transform.position));
+
 			if(tickcount == requiredTicks) {
 				tickcount = 0;
 
 				if(inp < input.Count) {
-					var machine = Grid.machines[input[inp].x, input[inp].y];
 
-					if(machine != null)
+					if(machine != null) {
 						machine.inventoryOperation(InteractionType.PULL, ref inventory[0]);
+					}
 
 					inp++;
 				} else {
@@ -53,16 +72,22 @@ public class MechanicalArm : Machine, IClickable
 			} else {
 				tickcount++;
 			}
+
+			return;
 		}
 
 		if(tickcount == requiredTicks) {
+			var machine = Grid.machines[output[outp].x, output[outp].y];
+
+			StartCoroutine(getObj(machine.transform.position));
+
 			tickcount = 0;
 
 			if(outp < output.Count) {
-				var machine = Grid.machines[input[inp].x, input[inp].y];
 
-				if(machine != null)
+				if(machine != null) {
 					machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
+				}
 
 				outp++;
 			} else {
@@ -136,4 +161,24 @@ public class MechanicalArm : Machine, IClickable
 			isSelecting = false;
 		}
 	}
+
+	#region anim
+	IEnumerator getObj(Vector3 coords) {
+		// rotate base towards coords in 1 tick
+		var target = Quaternion.LookRotation(coords - armBase.position, Vector3.up);
+		var baseRotation = armBase.rotation;
+
+		// interpolate quaternion
+		float t = 0;
+
+		while(t < TICK_RATE) {
+			t += Time.deltaTime;
+			armBase.rotation = Quaternion.Lerp(baseRotation, target, t / TICK_RATE);
+			yield return null;
+		}
+
+		armBase.rotation = target;
+	}
+
+	#endregion
 }

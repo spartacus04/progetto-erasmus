@@ -15,8 +15,9 @@ public class Drain : Machine {
 
 	public MeshRenderer fluidRenderer;
 
-
 	void Start() {
+
+
 		inventory = new Item[2];
 		fluids = new Fluid[1];
 	}
