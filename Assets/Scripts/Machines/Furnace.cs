@@ -49,6 +49,10 @@ public class Furnace : Machine
 						inventory[1].amount = recipe.outputCount;
 					}
 
+					if(inventory[0].amount <= 0) {
+						inventory[0] = null;
+					}
+
 					ticks = 0;
 					currentRecipe = -1;
 				} else {

@@ -34,10 +34,14 @@ public class MechanicalArm : Machine, IClickable
 
 	public Transform armBase;
 
-	public Transform arm;
+	public Transform defaultArmTransform;
+
+	private IKManager ikManager;
 
     void Start() {
         inventory = new Item[1];
+
+		ikManager = GetComponent<IKManager>();
     }
 
 	void Update() {
@@ -52,23 +56,24 @@ public class MechanicalArm : Machine, IClickable
 		if(output.Count == 0 || input.Count == 0) return;
 
 		if(inventory[0] == null) {
-			var machine = Grid.machines[input[inp].x, input[inp].y];
+			print(inp);
 
-			StartCoroutine(getObj(machine.transform.position));
+			var machin = Grid.machines[input[inp].x, input[inp].y];
+
+			if(tickcount == 0) {
+				StartCoroutine(getObj(machin.armTransform));
+			}
 
 			if(tickcount == requiredTicks) {
 				tickcount = 0;
 
-				if(inp < input.Count) {
-
-					if(machine != null) {
-						machine.inventoryOperation(InteractionType.PULL, ref inventory[0]);
-					}
-
-					inp++;
-				} else {
-					inp = 0;
+				if(machin != null) {
+					machin.inventoryOperation(InteractionType.PULL, ref inventory[0]);
 				}
+
+				inp++;
+
+				if(inp >= input.Count) inp = 0;
 			} else {
 				tickcount++;
 			}
@@ -76,23 +81,22 @@ public class MechanicalArm : Machine, IClickable
 			return;
 		}
 
+		var machine = Grid.machines[output[outp].x, output[outp].y];
+
+		if(tickcount == 0) {
+			StartCoroutine(getObj(machine.armTransform));
+		}
+
 		if(tickcount == requiredTicks) {
-			var machine = Grid.machines[output[outp].x, output[outp].y];
-
-			StartCoroutine(getObj(machine.transform.position));
-
 			tickcount = 0;
 
-			if(outp < output.Count) {
-
-				if(machine != null) {
-					machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
-				}
-
-				outp++;
-			} else {
-				outp = 0;
+			if(machine != null) {
+				machine.inventoryOperation(InteractionType.PUSH, ref inventory[0]);
 			}
+
+			outp++;
+
+			if(outp >= output.Count) outp = 0;
 		} else {
 			tickcount++;
 		}
@@ -163,21 +167,55 @@ public class MechanicalArm : Machine, IClickable
 	}
 
 	#region anim
-	IEnumerator getObj(Vector3 coords) {
+	IEnumerator getObj(Transform coords) {
 		// rotate base towards coords in 1 tick
-		var target = Quaternion.LookRotation(coords - armBase.position, Vector3.up);
-		var baseRotation = armBase.rotation;
+		var startRotation = armBase.rotation;
 
 		// interpolate quaternion
 		float t = 0;
 
 		while(t < TICK_RATE) {
 			t += Time.deltaTime;
+			armBase.rotation = Quaternion.Lerp(startRotation, Quaternion.identity, t / TICK_RATE);
+			yield return null;
+		}
+
+		armBase.rotation = Quaternion.identity;
+
+
+		ikManager.target = defaultArmTransform;
+		ikManager.canMove = true;
+
+		yield return new WaitForSeconds(TICK_RATE);
+
+		ikManager.canMove = false;
+
+		yield return new WaitForSeconds(TICK_RATE);
+
+		// rotate base towards coords in 1 tick
+		var target = Quaternion.LookRotation(armBase.position - coords.position, Vector3.up);
+		var baseRotation = armBase.rotation;
+
+		// interpolate quaternion
+		t = 0;
+
+		while(t < TICK_RATE) {
+			t += Time.deltaTime;
 			armBase.rotation = Quaternion.Lerp(baseRotation, target, t / TICK_RATE);
+			armBase.rotation = Quaternion.Euler(0, armBase.rotation.eulerAngles.y, 0);
 			yield return null;
 		}
 
 		armBase.rotation = target;
+		armBase.rotation = Quaternion.Euler(0, armBase.rotation.eulerAngles.y, 0);
+
+
+		ikManager.target = coords;
+		ikManager.canMove = true;
+
+		yield return new WaitForSeconds(TICK_RATE);
+
+		ikManager.canMove = false;
 	}
 
 	#endregion

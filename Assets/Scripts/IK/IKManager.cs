@@ -13,13 +13,15 @@ public class IKManager : MonoBehaviour
 
 	public int steps = 20;
 
+	public bool canMove = false;
+
 	float calculateSlope(Joint joint) {
 		float deltaTheta = 0.01f;
-		float dist1 = distance(end.transform.position, target.transform.position);
+		float dist1 = dist(end.transform.position, target.transform.position);
 
 		joint.RotateJoint(deltaTheta);
 
-		float dist2 = distance(end.transform.position, target.transform.position);
+		float dist2 = dist(end.transform.position, target.transform.position);
 
 		joint.RotateJoint(-deltaTheta);
 
@@ -27,8 +29,10 @@ public class IKManager : MonoBehaviour
 	}
 
 	private void Update() {
+		if(!canMove) return;
+
 		for(int i = 0; i < steps; i++) {
-			if(distance (end.transform.position, target.position) < threshold) break;
+			if(dist(end.transform.position, target.position) < threshold) break;
 
 			var current = root;
 			while(current != null) {
@@ -40,9 +44,5 @@ public class IKManager : MonoBehaviour
 		}
 	}
 
-
-	public float distance(Vector3 a, Vector3 b)
-	{
-		return Vector3.Distance(a, b);
-	}
+	public float dist(Vector3 a, Vector3 b) => Vector3.Distance(a, b);
 }

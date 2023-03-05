@@ -24,10 +24,18 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		machine = GetComponent<Machine>();
 
 		hologram = Instantiate(gameObject);
+
 		Destroy(hologram.GetComponent<GrabbableMachine>());
 		Destroy(hologram.GetComponent<XRGrabInteractable>());
 		Destroy(hologram.GetComponent<Rigidbody>());
 		Destroy(hologram.GetComponent<Collider>());
+
+		if(hologram.TryGetComponent<FurnaceWrapper>(out var fw))
+			Destroy(fw);
+
+		if(hologram.TryGetComponent<SawWrapper>(out var sw))
+			Destroy(sw);
+
 		Destroy(hologram.GetComponent<Machine>());
 		hologram.GetComponentsInChildren<SpriteRenderer>().ForEach(s => Destroy(s));
 		
