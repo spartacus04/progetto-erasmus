@@ -29,7 +29,7 @@ public class ItemOutput : Machine
 	{
 		if(type == InteractionType.PULL) {
 			if(current == null) {
-				current = inventory[0];
+				current = Instantiate(inventory[0]);
 
 				if(current.amount > current.maxStackSize) {
 					inventory[0].amount = current.amount - current.maxStackSize;

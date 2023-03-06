@@ -16,4 +16,4 @@ MonoBehaviour:
   output: {fileID: 11400000, guid: 109369141c2d0f14882e381f35d1c2e8, type: 2}
   inputCount: 1
   outputCount: 6
-  ticks: 5
+  ticks: 4

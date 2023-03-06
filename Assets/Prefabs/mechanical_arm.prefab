@@ -699,7 +699,7 @@ MonoBehaviour:
   end: {fileID: 3617794010642723169}
   target: {fileID: 0}
   threshold: 0.0005
-  rate: 20
+  rate: 60
   steps: 20
   canMove: 0
 --- !u!114 &3617794010682526562
