@@ -117,6 +117,8 @@ public class Mixer : Machine {
 	{
 		switch(type) {
 			case InteractionType.PUSH:
+				if(current == null) return;
+
 				if(inventory[0] == null) {
 					if(inventory[1] != null && inventory[1].name == current.name) {
 						inventory[1].amount += current.amount;
@@ -128,9 +130,11 @@ public class Mixer : Machine {
 							current = null;
 						}
 					} else {
-						inventory[0] = current;
+						inventory[0] = Instantiate(current);
 						current = null;
 					}
+
+					return;
 				} else if(current.name == inventory[0].name) {
 					inventory[0].amount += current.amount;
 
@@ -140,6 +144,8 @@ public class Mixer : Machine {
 					} else {
 						current = null;
 					}
+
+					return;
 				}
 
 				if(inventory[1] == null) {
@@ -153,7 +159,7 @@ public class Mixer : Machine {
 							current = null;
 						}
 					} else {
-						inventory[1] = current;
+						inventory[1] = Instantiate(current);
 						current = null;
 					}
 				} else if(current.name == inventory[1].name) {
@@ -170,7 +176,7 @@ public class Mixer : Machine {
 				break;
 			case InteractionType.PULL:
 				if(current == null) {
-					current = inventory[2];
+					current = Instantiate(inventory[2]);
 
 					if(current.amount > current.maxStackSize) {
 						inventory[2].amount = current.amount - current.maxStackSize;

@@ -60,14 +60,14 @@ public class Drain : Machine {
 					if(fluids[0] != null) {
 						fluids[0].quantity += recipe.fluidCount;
 					} else {
-						fluids[0] = recipe.fluid;
+						fluids[0] = Instantiate(recipe.fluid);
 						fluids[0].quantity = recipe.fluidCount;
 					}
 
 					if(inventory[1] != null) {
 						inventory[1].amount += recipe.outputCount;
 					} else {
-						inventory[1] = recipe.output;
+						inventory[1] = Instantiate(recipe.output);
 						inventory[1].amount = recipe.outputCount;
 					}
 
@@ -84,8 +84,10 @@ public class Drain : Machine {
 
 	public override void clearContents()
 	{
-		inventory.Empty();
-		fluids.Empty();
+		inventory[0] = null;
+		inventory[1] = null;
+
+		fluids[0] = null;
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current)
@@ -93,7 +95,7 @@ public class Drain : Machine {
 		switch(type) {
 			case InteractionType.PUSH:
 				if(inventory[0] == null) {
-					inventory[0] = current;
+					inventory[0] = Instantiate(current);
 					current = null;
 				} else if(current.name == inventory[0].name) {
 					inventory[0].amount += current.amount;
@@ -109,23 +111,25 @@ public class Drain : Machine {
 				break;
 			case InteractionType.PULL:
 				if(current == null) {
-					current = inventory[0];
+					if(inventory[1] == null) return;
+
+					current = Instantiate(inventory[1]);
 
 					if(current.amount > current.maxStackSize) {
-						inventory[0].amount = current.amount - current.maxStackSize;
+						inventory[1].amount = current.amount - current.maxStackSize;
 						current.amount = current.maxStackSize;
 					}
 					else {
-						inventory[0] = null;
+						inventory[1] = null;
 					}
-				} else if(current.name == inventory[0].name) {
-					current.amount += inventory[0].amount;
+				} else if(current.name == inventory[1].name) {
+					current.amount += inventory[1].amount;
 
 					if(current.amount > current.maxStackSize) {
-						inventory[0].amount = current.amount - current.maxStackSize;
+						inventory[1].amount = current.amount - current.maxStackSize;
 						current.amount = current.maxStackSize;
 					} else {
-						inventory[0] = null;
+						inventory[1] = null;
 					}
 				}
 

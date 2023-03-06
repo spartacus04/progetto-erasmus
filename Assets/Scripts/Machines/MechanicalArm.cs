@@ -53,11 +53,13 @@ public class MechanicalArm : Machine, IClickable
 
     public override void onTick()
 	{
+		// filter out input if null
+		input = input.Where(x => Grid.machines[x.x, x.y] != null).ToList();
+		output = output.Where(x => Grid.machines[x.x, x.y] != null).ToList();
+
 		if(output.Count == 0 || input.Count == 0) return;
 
 		if(inventory[0] == null) {
-			print(inp);
-
 			var machin = Grid.machines[input[inp].x, input[inp].y];
 
 			if(tickcount == 0) {
@@ -104,12 +106,17 @@ public class MechanicalArm : Machine, IClickable
 
 	public override void clearContents()
 	{
-        inventory.Empty();
+        inventory[0] = null;
 
 		if(isSelecting) OnClick();
 
 		input = new List<Vector2Int>();
 		output = new List<Vector2Int>();
+
+		inp = 0;
+		outp = 0;
+
+		tickcount = 0;
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current) { }
@@ -121,21 +128,27 @@ public class MechanicalArm : Machine, IClickable
 			{
 				for (int y = -2; y <= 2; y++)
 				{
-					var machine = Grid.machines[x + snappedPos.x, y + snappedPos.y];
+					try{
+						var machine = Grid.machines[x + snappedPos.x, y + snappedPos.y];
 
-					if (machine != null && machine.gameObject != gameObject && !(machine is MechanicalArm)) {
-						machine.gameObject.AddComponent<Selectable>();
+						if (machine != null && machine.gameObject != gameObject && !(machine is MechanicalArm)) {
+							machine.gameObject.AddComponent<Selectable>();
 
-						if(input.Contains(new Vector2Int(x + snappedPos.x, y + snappedPos.y))) {
-							machine.GetComponent<Selectable>().Apply(1);
+							if(input.Contains(new Vector2Int(x + snappedPos.x, y + snappedPos.y))) {
+								machine.GetComponent<Selectable>().Apply(1);
+							}
+							else if(output.Contains(new Vector2Int(x + snappedPos.x, y + snappedPos.y))) {
+								machine.GetComponent<Selectable>().Apply(2);
+							}
+							else {
+								machine.GetComponent<Selectable>().Apply(0);
+							}
 						}
-						else if(output.Contains(new Vector2Int(x + snappedPos.x, y + snappedPos.y))) {
-							machine.GetComponent<Selectable>().Apply(2);
-						}
-						else {
-							machine.GetComponent<Selectable>().Apply(0);
-						}
+					} catch (IndexOutOfRangeException) { }
+					catch(Exception e) {
+						Debug.LogError(e);
 					}
+					
 				}
 			}
 

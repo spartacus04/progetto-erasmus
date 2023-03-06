@@ -70,7 +70,8 @@ public class Furnace : Machine
 	}
 
 	public override void clearContents() {
-		inventory.Empty();
+		inventory[0] = null;
+		inventory[1] = null;
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current) {

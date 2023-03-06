@@ -3133,7 +3133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8480091366622571546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3166,7 +3166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8480091366643479050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.9, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3328,7 +3328,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2.5, z: 1}
-  m_Center: {x: -0.5, y: 1.25, z: 0.5}
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!114 &3230636778447163032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3344,6 +3344,7 @@ MonoBehaviour:
   snappedPos: {x: -1, y: -1}
   inventory: []
   fluids: []
+  armTransform: {fileID: 6218232845935478196}
   recipes:
   - {fileID: 11400000, guid: ffc76dbe75b3e293b9ca2c3c88ebe94a, type: 2}
   - {fileID: 11400000, guid: 8508c80a58bfde682b1cbd3e26bf2381, type: 2}
