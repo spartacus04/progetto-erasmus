@@ -168,6 +168,13 @@ public class MechanicalArm : Machine, IClickable
 
 	#region anim
 	IEnumerator getObj(Transform coords) {
+		ikManager.target = defaultArmTransform;
+		ikManager.canMove = true;
+
+		yield return new WaitForSeconds(TICK_RATE);
+
+		ikManager.canMove = false;
+
 		// rotate base towards coords in 1 tick
 		var startRotation = armBase.rotation;
 
@@ -181,14 +188,6 @@ public class MechanicalArm : Machine, IClickable
 		}
 
 		armBase.rotation = Quaternion.identity;
-
-
-		ikManager.target = defaultArmTransform;
-		ikManager.canMove = true;
-
-		yield return new WaitForSeconds(TICK_RATE);
-
-		ikManager.canMove = false;
 
 		yield return new WaitForSeconds(TICK_RATE);
 

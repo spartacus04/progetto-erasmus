@@ -220,7 +220,7 @@ MonoBehaviour:
   snappedPos: {x: -1, y: -1}
   inventory: []
   fluids: []
-  armTransform: {fileID: 2335721716637715436}
+  armTransform: {fileID: 2335721717563905648}
   item: {fileID: 11400000, guid: fb0bf3359806dde459bb7f8c1bc90495, type: 2}
   genRate: 5
 --- !u!54 &2335721717563905650
