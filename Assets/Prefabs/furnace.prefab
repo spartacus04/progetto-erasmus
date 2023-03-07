@@ -96,6 +96,7 @@ MonoBehaviour:
   snappedPos: {x: -1, y: -1}
   inventory: []
   fluids: []
+  armTransform: {fileID: 141081455937275624}
   recipes:
   - {fileID: 11400000, guid: 3ec7bc9e86e6755e7bb35d61253fb01c, type: 2}
   ticks: 0

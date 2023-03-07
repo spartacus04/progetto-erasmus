@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5fcd9b746d938e909d571d2be96124d, type: 3}
-  m_Name: Press
+  m_Name: KineticMechanism
   m_EditorClassIdentifier: 
   input:
   - {fileID: 11400000, guid: f55c5b567ff6efc4793c63a5c799d6e4, type: 2}

@@ -31,6 +31,7 @@ Transform:
   - {fileID: 76648898148832136}
   - {fileID: 76648898818751196}
   - {fileID: 1411354175417213845}
+  - {fileID: 2477569049261689885}
   m_Father: {fileID: 1411354175134525393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,7 +117,7 @@ MonoBehaviour:
   snappedPos: {x: -1, y: -1}
   inventory: []
   fluids: []
-  armTransform: {fileID: 1411354175134525393}
+  armTransform: {fileID: 2477569049261689885}
   recipes:
   - {fileID: 11400000, guid: c28fa8bbcc197ac4b917c60e8b18cc66, type: 2}
   - {fileID: 11400000, guid: 7eb05ae000441ac48b1754478cafb0b6, type: 2}
@@ -564,6 +565,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4341198861340449667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2477569049261689885}
+  m_Layer: 0
+  m_Name: Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2477569049261689885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341198861340449667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 0.08, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 475963986579462409}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &475963985275477303
 PrefabInstance:
   m_ObjectHideFlags: 0
