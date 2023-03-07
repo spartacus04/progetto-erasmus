@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,5 +24,14 @@ public class GameManager : MonoBehaviour
 		foreach(Transform child in obj.transform) {
 			ApplyMaterialRecursively(child.gameObject, mat);
 		}
+	}
+
+	public static void setTimeout(Action action, float time) {
+		instance.StartCoroutine(Timeout(action, time));
+	}
+
+	private static IEnumerator Timeout(Action action, float time) {
+		yield return new WaitForSeconds(time);
+		action();
 	}
 }
