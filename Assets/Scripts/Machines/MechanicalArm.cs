@@ -38,7 +38,7 @@ public class MechanicalArm : Machine, IClickable
 
 	private IKManager ikManager;
 
-	private static bool isSelectingStatic;
+	private static MechanicalArm selectedArm;
 
     void Start() {
         inventory = new Item[1];
@@ -125,7 +125,7 @@ public class MechanicalArm : Machine, IClickable
 
 	public void OnClick()
 	{
-		if(isSelectingStatic && !isSelecting) return;
+		if(selectedArm != null && selectedArm != this) return;
 
 		if(!isSelecting) {
 			for (int x = -2; x <= 2; x++)
@@ -160,7 +160,7 @@ public class MechanicalArm : Machine, IClickable
 			output = new List<Vector2Int>();
 
 			isSelecting = true;
-			isSelectingStatic = true;
+			selectedArm = this;
 		}
 		else {
 			var machines = FindObjectsOfType<Selectable>().ToList();
@@ -181,7 +181,7 @@ public class MechanicalArm : Machine, IClickable
 			machines.ForEach(m => Destroy(m));
 
 			isSelecting = false;
-			isSelectingStatic = false;
+			selectedArm = null;
 		}
 	}
 

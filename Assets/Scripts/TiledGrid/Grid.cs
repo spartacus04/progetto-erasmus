@@ -69,7 +69,7 @@ public class Grid : MonoBehaviour
 			for(int x = 0; x < width; x++)
 				for(int y = 0; y < height; y++)
 					if(machines[x, y] != null) {
-						print($"Ticking machine at {x}, {y}");
+						// print($"Ticking machine at {x}, {y}");
 						machines[x, y].onTick();
 					}
 		} else {
