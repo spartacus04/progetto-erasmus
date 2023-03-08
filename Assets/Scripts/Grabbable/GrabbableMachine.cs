@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Linq;
 using System.Collections.Generic;
+using TMPro;
 
 [RequireComponent(typeof(Machine), typeof(Rigidbody), typeof(XRGrabInteractable))]
 public class GrabbableMachine : MonoBehaviour, IGrabbable
@@ -29,6 +30,7 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		Destroy(hologram.GetComponent<XRGrabInteractable>());
 		Destroy(hologram.GetComponent<Rigidbody>());
 		Destroy(hologram.GetComponent<Collider>());
+		Destroy(hologram.GetComponentInChildren<TextMeshProUGUI>());
 
 		if(hologram.TryGetComponent<FurnaceWrapper>(out var fw))
 			Destroy(fw);

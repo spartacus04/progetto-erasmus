@@ -12,7 +12,7 @@ public class ItemInput : Machine
 
 	private SpriteRenderer spriteRenderer;
 
-	private TextMeshPro text;
+	private TextMeshProUGUI text;
 
 	public override void clearContents() { }
 
@@ -21,7 +21,7 @@ public class ItemInput : Machine
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		spriteRenderer.sprite = item.icon;
 
-		text = GetComponentInChildren<TextMeshPro>();
+		text = GetComponentInChildren<TextMeshProUGUI>();
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current)
