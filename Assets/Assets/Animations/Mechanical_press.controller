@@ -31,7 +31,7 @@ AnimatorController:
   m_Name: Mechanical_press
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Speed
+  - m_Name: speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -72,7 +72,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: ee8c863e6d4cc7968947e1349b1c8579, type: 2}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 

@@ -1019,7 +1019,8 @@ MonoBehaviour:
   inventory: []
   fluids: []
   armTransform: {fileID: 3264661652686680210}
-  recipes: []
+  recipes:
+  - {fileID: 11400000, guid: a79e3d24d9f457d7681febe5280bc4e0, type: 2}
   sprites:
   - {fileID: 3264661652163395344}
   - {fileID: 3264661652938879467}
