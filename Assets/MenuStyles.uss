@@ -1,0 +1,20 @@
+.menu-button {
+    font-size: 60px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-color: rgba(56, 56, 56, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font: none;
+    -unity-font-definition: url('project://database/Assets/Assets/Mabook%20SDF.asset?fileID=11400000&guid=e6059948d6bb79b4e8110d13da2566ef&type=2#Mabook SDF');
+    transition-duration: 0.2s;
+}
+
+.menu-button:hover {
+    font-size: 40px;
+    color: rgba(255, 255, 255, 255);
+    rotate: -10deg;
+    transition-duration: 0.3s;
+}
