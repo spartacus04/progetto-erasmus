@@ -6,21 +6,24 @@ using UnityEngine.XR;
 
 public class InputManager : MonoBehaviour
 {
-	[SerializeField]
-	private XRNode xRNode = XRNode.LeftHand;
+	public XRNode xRNode = XRNode.LeftHand;
 	private List<InputDevice> devices = new List<InputDevice>();
 	private InputDevice device;
 
-	[SerializeField]
-	Animator hands;
-    
+	public Animator hand;
+	public Transform raycastOrigin;
 
-	
-   
-    
+	private bool firstPress = true;
+
+	private bool triggerButtonAction = false;
+	private bool gripButton = false;
+
 	void Start()
 	{
-		
+		if (!device.isValid)
+		{
+			GetDevice();
+		}
 	}
 
 	void GetDevice()
@@ -28,67 +31,52 @@ public class InputManager : MonoBehaviour
 		InputDevices.GetDevicesAtXRNode(xRNode, devices);
 		device = devices.FirstOrDefault();
 	}
-	void OnEnable()
-	{
 
-		if (!device.isValid)
-		{
-			GetDevice();
-		}
-
-	}
-
-	int cont = 0;
-
-	// Update is called once per frame
 	void Update()
 	{
 		if (!device.isValid)
 		{
 			GetDevice();
 		}
-		/*List<InputFeatureUsage> features = new List<InputFeatureUsage>();
-		device.TryGetFeatureUsages(features); 
-		if(cont>features.Count){
-		return;
-		}else{
-		foreach(var feature in features){
-		    if(feature.type== typeof(bool)){
-		Debug.Log($"feature{feature.name} type {feature.type}");
-		    }
-		cont++;
-		
-		} Logg per riconoscere input*/
-		input();
-	}
 
-	public bool triggerButtonAction = false;
-	public bool gripButton = false;
-	void input()
-	{
-
-
-
-
-		if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction) && triggerButtonAction)
+		if (device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerButtonAction))
 		{
+			if (triggerButtonAction)
+			{
+				if (firstPress)
+				{
+					firstPress = false;
 
-			Debug.Log($"Trigger button activated {triggerButtonAction}");
-			hands.SetFloat("speed", 1);
-			hands.SetTrigger("point");
-		} else if (device.TryGetFeatureValue(CommonUsages.gripButton, out gripButton) && gripButton)
-		{
-			Debug.Log($"Trigger button activated {gripButton}");
-			hands.SetFloat("speed", 1);
-			hands.SetTrigger("grab");
-		}else{
-		    hands.SetFloat("speed", -1);
+					// raycast in direction of raycastOrigin if hit object is IClickable fire onclick
+					RaycastHit hit;
+					if (Physics.Raycast(raycastOrigin.position, raycastOrigin.forward, out hit))
+					{
+						if (hit.collider.gameObject.GetComponent<IClickable>() != null)
+						{
+							hit.collider.gameObject.GetComponent<IClickable>().OnClick();
+						}
+					}
+				}
 
+				hand.SetFloat("speed", 1);
+				hand.SetTrigger("point");
+
+				return;
+			}
+			else
+			{
+				firstPress = true;
+			}
 		}
 
+		if (device.TryGetFeatureValue(CommonUsages.gripButton, out gripButton) && gripButton)
+		{
+			hand.SetFloat("speed", 1);
+			hand.SetTrigger("grab");
+		}
+		else
+		{
+			hand.SetFloat("speed", -1);
+		}
 	}
-
-
-
-
 }
