@@ -13,11 +13,15 @@ public class InputManager : MonoBehaviour
 
 	[SerializeField]
 	Animator hands;
-   
+    
+
+	
    
     
 	void Start()
-	{}
+	{
+		
+	}
 
 	void GetDevice()
 	{
