@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fcd9b746d938e909d571d2be96124d, type: 3}
+  m_Name: KineticMechanism
+  m_EditorClassIdentifier: 
+  input:
+  - {fileID: 11400000, guid: f55c5b567ff6efc4793c63a5c799d6e4, type: 2}
+  - {fileID: 11400000, guid: 466ec3b39d59c9d47a48f322ea77e5e6, type: 2}
+  output: {fileID: 11400000, guid: 9f41596d7b3950c958e4f86a5d538302, type: 2}
+  fluidInput: {fileID: 0}
+  fluidOutput: {fileID: 0}
+  inputCount: 0100000002000000
+  outputCount: 1
+  fluidInputCount: 0
+  fluidOutputCount: 0
+  ticks: 0
