@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18029143, g: 0.22572419, b: 0.30693057, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5721,10 +5721,14 @@ PrefabInstance:
     - target: {fileID: 4878678282866514362, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4382b9a70504db344b9783417399d32a, type: 2}
+      objectReference: {fileID: 2100000, guid: b545bdf64b9aba585b543eec0b7d05c6, type: 2}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_RootOrder
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5732,11 +5736,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.41
+      value: 1.684
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.47
+      value: -5.952
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7285,7 +7289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.787
+      value: -8.614
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11809,7 +11813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.713
+      value: -3.415
       objectReference: {fileID: 0}
     - target: {fileID: 8326701577593598891, guid: afdccc0546f268e44bec99ffd5e0a1b7, type: 3}
       propertyPath: m_LocalRotation.w
