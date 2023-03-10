@@ -25,7 +25,7 @@ public class Rotator : MonoBehaviour
 		if(prev < 0) prev = 3;
 
 		if(id == prev) {
-			instance.animator.SetTrigger("URotate" + (prev + 1) % 4);
+			instance.animator.SetTrigger("URotate" + ((prev + 1) % 4));
 		} else {
 			instance.animator.SetTrigger("Rotate" + id);
 		}

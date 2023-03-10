@@ -94,7 +94,6 @@ public class Spout : Machine {
 					}
 				}
 
-
 				break;
 		}
 	}

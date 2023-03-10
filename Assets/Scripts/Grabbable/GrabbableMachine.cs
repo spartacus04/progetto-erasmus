@@ -108,7 +108,6 @@ public class GrabbableMachine : MonoBehaviour, IGrabbable
 		hologram.SetActive(false);
 	}
 
-
 	public void grabEvent(SelectEnterEventArgs args) => OnGrab();
 	public void releaseEvent(SelectExitEventArgs args) => OnRelease();
 }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using static Glob;
 
 public class Mixer : Machine {
-
 	public List<MixerCrafting> recipes;
 	public override bool allowFluids => true;
 	private int ticks = 0;
@@ -196,7 +195,6 @@ public class Mixer : Machine {
 					}
 				}
 
-
 				break;
 		}
 	}
@@ -280,7 +278,6 @@ public class Mixer : Machine {
 
 		animator.SetFloat("speed", 0);
 	}
-
 
 	#endregion
 }

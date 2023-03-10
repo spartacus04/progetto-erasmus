@@ -22,15 +22,9 @@ public class DummyPlayer : MonoBehaviour
 	{
 		//TODO: implement check to see if there's already a real player
 		if (UnityEngine.XR.XRSettings.enabled)
-		{
 			gameObject.SetActive(false);
-		}
 		else
-		{
 			VR.SetActive(false);
-			
-		}
-
 
 		dummy = transform.Find("Dummy").gameObject;
 		dummy.SetActive(true);
@@ -90,7 +84,7 @@ public class DummyPlayer : MonoBehaviour
 
 		if (isGrabbing && Input.mouseScrollDelta.y != 0)
 		{
-			grabbedDistance = Vector3.Distance(transform.position, grabbedObject.transform.position) + 0.1f * Input.mouseScrollDelta.y;
+			grabbedDistance = Vector3.Distance(transform.position, grabbedObject.transform.position) + (0.1f * Input.mouseScrollDelta.y);
 
 			if (grabbedDistance < 0.5f) grabbedDistance = 0.5f;
 			if (grabbedDistance > 1.5f) grabbedDistance = 1.5f;

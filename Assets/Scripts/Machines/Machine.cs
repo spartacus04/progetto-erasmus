@@ -25,7 +25,6 @@ public abstract class Machine : MonoBehaviour {
 
 	public virtual void fluidOperation(InteractionType type, ref Fluid current) { }
 
-
 	public void ApplyPosition(Vector2Int pos) {
 		if (snappedPos.x != -1 || snappedPos.y != -1)
 			Grid.machines[snappedPos.x, snappedPos.y] = null;

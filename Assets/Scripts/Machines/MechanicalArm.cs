@@ -152,7 +152,6 @@ public class MechanicalArm : Machine, IClickable
 					catch(Exception e) {
 						Debug.LogError(e);
 					}
-					
 				}
 			}
 
@@ -226,7 +225,6 @@ public class MechanicalArm : Machine, IClickable
 
 		armBase.rotation = target;
 		armBase.rotation = Quaternion.Euler(0, armBase.rotation.eulerAngles.y, 0);
-
 
 		ikManager.target = coords;
 		ikManager.canMove = true;

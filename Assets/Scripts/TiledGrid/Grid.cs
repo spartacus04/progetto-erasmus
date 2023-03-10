@@ -41,7 +41,6 @@ public class Grid : MonoBehaviour
 
 				grid[x + halfwidth, y + halfheight] = gameObject.transform;
 			}
-
 	}
 
 	public static (float dist, Vector2Int coords) nearestGridPoint(Vector3 point) {
