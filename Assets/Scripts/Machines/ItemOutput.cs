@@ -5,7 +5,6 @@ public class ItemOutput : Machine
 {
 	public Item item;
 
-
 	public int genRate = 5;
 
 	private int ticks = 0;

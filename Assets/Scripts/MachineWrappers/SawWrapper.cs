@@ -14,7 +14,6 @@ public class SawWrapper : MonoBehaviour
 	private SpriteRenderer endSR;
 	private SpriteRenderer objSR;
 
-
     void Start()
     {
 		furnace = GetComponent<Furnace>();

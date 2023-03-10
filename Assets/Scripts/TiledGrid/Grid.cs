@@ -38,7 +38,6 @@ public class Grid : MonoBehaviour
 				gameObject.transform.localPosition = point;
 				gameObject.transform.localScale *= 0.01f;
 
-
 				grid[x + halfwidth, y + halfheight] = gameObject.transform;
 			}
 	}

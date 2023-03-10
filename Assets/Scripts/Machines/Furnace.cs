@@ -26,7 +26,6 @@ public class Furnace : Machine
 		recipes.ForEachIndexed((recipe, i)=> {
 			if(inventory[0] == null) return;
 
-
 			if(recipe.input.name == inventory[0].name &&
 				inventory[0].amount >= recipe.inputCount &&
 				(inventory[1] == null ||

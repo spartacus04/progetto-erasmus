@@ -15,7 +15,6 @@ public class MainMenu : MonoBehaviour
 		var startBtn = doc.rootVisualElement.Q<Button>("PlayButton");
 		var exitBtn = doc.rootVisualElement.Q<Button>("ExitButton");
 
-
 		startBtn.clicked += StartGame;
 		exitBtn.clicked += ExitGame;
 	}
