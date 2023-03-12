@@ -9,6 +9,8 @@ public class DummyPlayer : MonoBehaviour
 	public float sensitivity = 10f;
 	public float yRotationLimit = 88f;
 
+	public Camera cam;
+
 	private GameObject dummy;
 
 	private bool isGrabbing = false;
@@ -20,7 +22,6 @@ public class DummyPlayer : MonoBehaviour
 	const string yAxis = "Mouse Y";
 	private void Awake()
 	{
-		//TODO: implement check to see if there's already a real player
 		if (UnityEngine.XR.XRSettings.enabled)
 			gameObject.SetActive(false);
 		else
@@ -41,6 +42,19 @@ public class DummyPlayer : MonoBehaviour
 		rotate();
 		grab();
 		click();
+		zoom();
+	}
+
+	void zoom() {
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			cam.fieldOfView += 10;
+		}
+		else if(Input.GetKeyDown(KeyCode.E)) {
+			cam.fieldOfView -= 10;
+		}
+
+		if(cam.fieldOfView < 30) cam.fieldOfView = 30;
+		if(cam.fieldOfView > 80) cam.fieldOfView = 80;
 	}
 
 	void rotate()
