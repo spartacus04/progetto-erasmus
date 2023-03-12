@@ -14,7 +14,9 @@ public class ItemInput : Machine
 
 	private TextMeshProUGUI text;
 
-	public override void clearContents() { }
+	public override void clearContents() { 
+		count = 0;
+	}
 
 	public void Start() {
 		inventory = new Item[1];

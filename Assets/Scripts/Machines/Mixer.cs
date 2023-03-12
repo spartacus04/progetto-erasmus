@@ -109,7 +109,12 @@ public class Mixer : Machine {
 	}
 
 	public override void clearContents() {
-		inventory.Empty();
+		inventory[0] = null;
+		inventory[1] = null;
+		inventory[2] = null;
+
+		fluids[0] = null;
+		fluids[1] = null;
 	}
 
 	public override void inventoryOperation(Glob.InteractionType type, ref Item current)
@@ -174,6 +179,9 @@ public class Mixer : Machine {
 
 				break;
 			case InteractionType.PULL:
+				if(inventory[2] == null) return;
+
+
 				if(current == null) {
 					current = Instantiate(inventory[2]);
 

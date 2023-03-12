@@ -49,8 +49,9 @@ public class Spout : Machine {
 
 	public override void clearContents()
 	{
-		inventory.Empty();
-		fluids.Empty();
+		inventory[0] = null;
+		inventory[1] = null;
+		fluids[0] = null;
 	}
 
 	public override void inventoryOperation(InteractionType type, ref Item current)

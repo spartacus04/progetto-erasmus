@@ -108,6 +108,8 @@ public class Drain : Machine {
 
 				break;
 			case InteractionType.PULL:
+				if(inventory[1] == null) return;
+
 				if(current == null) {
 					if(inventory[1] == null) return;
 

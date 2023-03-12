@@ -92,6 +92,9 @@ public class Furnace : Machine
 
 				break;
 			case InteractionType.PULL:
+				if(inventory[1] == null) return;
+
+
 				if(current == null) {
 					current = Instantiate(inventory[1]);
 
