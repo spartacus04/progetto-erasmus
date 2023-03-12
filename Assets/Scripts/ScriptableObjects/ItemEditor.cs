@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 using Object = UnityEngine.Object;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Item), true)]
 [CanEditMultipleObjects]
 public class ItemEditor : Editor
@@ -68,3 +69,4 @@ public class ItemEditor : Editor
 		return null;
 	}
 }
+#endif

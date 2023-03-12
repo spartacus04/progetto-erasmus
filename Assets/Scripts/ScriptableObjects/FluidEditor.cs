@@ -5,7 +5,7 @@ using UnityEditor;
 using System;
 using System.Reflection;
 using Object = UnityEngine.Object;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(Fluid), true)]
 [CanEditMultipleObjects]
 public class FluidEditor : Editor
@@ -68,3 +68,4 @@ public class FluidEditor : Editor
 		return null;
 	}
 }
+#endif
