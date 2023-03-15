@@ -6,13 +6,14 @@ public class ItemInput : Machine
 {
 	public Item item;
 
-	public int count = 0; 
+	private int count = 0; 
 
 	public override bool allowFluids => false;
 
 	private SpriteRenderer spriteRenderer;
 
 	private TextMeshProUGUI text;
+	public GameObject winScreen;
 
 	public override void clearContents() { 
 		count = 0;
@@ -34,10 +35,14 @@ public class ItemInput : Machine
 				current = null;
 			}
 		}
+
+		if(count >= 8) {
+			winScreen.SetActive(true);
+		}
 	}
 
 	private void Update() {
-		text.text = $"{count}/{item.maxStackSize}";
+		text.text = $"{count}/8";
 	}
 
 	public override void onTick() { }
